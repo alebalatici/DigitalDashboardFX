@@ -1,0 +1,111 @@
+[
+  {
+    "id": 1,
+    "brand": "Tesla",
+    "model": "Model 3",
+    "releaseYear": 2023,
+    "totalKilometres": 18200,
+    "engineType": "ELECTRIC",
+    "fuelCapacity": 75.0,
+    "currentFuel": 60.0
+  },
+
+  {
+    "id": 2,
+    "brand": "Dacia",
+    "model": "Duster",
+    "releaseYear": 2022,
+    "totalKilometres": 4500,
+    "engineType": "ICE_DIESEL",
+    "fuelCapacity": 50.0,
+    "currentFuel": 35.5
+  },
+
+  {
+    "id": 3,
+    "brand": "BMV",
+    "model": "i4 M50",
+    "releaseYear": 2023,
+    "totalKilometres": 29000,
+    "engineType": "ELECTRIC",
+    "fuelCapacity":83.9,
+    "currentFuel": 41.0
+  },
+
+  {
+    "id": 4,
+    "brand": "Toyota",
+    "model": "RAV4 Hybrid",
+    "releaseYear": 2024,
+    "totalKilometres": 5000,
+    "engineType": "ICE_GASOLINE",
+    "fuelCapacity": 55.0,
+    "currentFuel": 55.0
+  },
+
+  {
+    "id": 5,
+    "brand": "Volkswagen",
+    "model": "Golf 8",
+    "releaseYear": 2021,
+    "totalKilometres": 82000,
+    "engineType": "ICE_GASOLINE",
+    "fuelCapacity": 50.0,
+    "currentFuel": 12.0
+  },
+
+  {
+    "id": 6,
+    "brand": "Audi",
+    "model": "A4",
+    "releaseYear": 2022,
+    "totalKilometres": 3400,
+    "engineType": "ICE_DIESEL",
+    "fuelCapacity": 54.0,
+    "currentFuel": 28.0
+  },
+
+  {
+    "id": 7,
+    "brand": "Hyundai",
+    "model": "Ioniq 5",
+    "releaseYear": 2023,
+    "totalKilometres": 12500,
+    "engineType": "ELECTRIC",
+    "fuelCapacity": 77.4,
+    "currentFuel": 58.0
+  },
+
+  {
+    "id": 8,
+    "brand": "Porsche",
+    "model": "Taycan",
+    "releaseYear": 2024,
+    "totalKilometres": 3200,
+    "engineType": "ELECTRIC",
+    "fuelCapacity": 93.4,
+    "currentFuel": 80.0
+  },
+
+  {
+    "id": 9,
+    "brand": "Skoda",
+    "model": "Octavia",
+    "releaseYear": 2020,
+    "totalKilometres": 11000,
+    "engineType": "ICE_DIESEL",
+    "fuelCapacity": 45.0,
+    "currentFuel": 18.5
+  },
+
+  {
+    "id": 10,
+    "brand": "Ford",
+    "model": "Focus",
+    "releaseYear": 2021,
+    "totalKilometres": 6500,
+    "engineType": "ICE_GASOLINE",
+    "fuelCapacity": 52.0,
+    "currentFuel": 40.0
+  }
+]

@@ -1,0 +1,451 @@
+[
+  {
+    "type": "CITY",
+    "name": "Cluj-Napoca",
+    "country": "Romania",
+    "x": 46.7712,
+    "y": 23.6236,
+    "weekdayCongestionFactor": 1.6,
+    "weekendCongestionFactor": 1.2
+  },
+
+  {
+    "type": "CITY",
+    "name": "Oradea",
+    "country": "Romania",
+    "x": 47.0519,
+    "y": 21.9404,
+    "weekdayCongestionFactor": 1.35,
+    "weekendCongestionFactor": 1.1
+  },
+
+  {
+    "type": "CITY",
+    "name": "Arad",
+    "country": "Romania",
+    "x": 46.1866,
+    "y": 21.3123,
+    "weekdayCongestionFactor": 1.3,
+    "weekendCongestionFactor": 1.05
+  },
+
+  {
+    "type": "CITY",
+    "name": "Satu Mare",
+    "country": "Romania",
+    "x": 47.7924,
+    "y": 22.8851,
+    "weekdayCongestionFactor": 1.25,
+    "weekendCongestionFactor": 1.05
+  },
+
+  {
+    "type": "CITY",
+    "name": "Debrecen",
+    "country": "Hungary",
+    "x": 47.5316,
+    "y": 21.6273,
+    "weekdayCongestionFactor": 1.4,
+    "weekendCongestionFactor": 1.1
+  },
+
+  {
+    "type": "CITY",
+    "name": "Szeged",
+    "country": "Hungary",
+    "x": 46.2530,
+    "y": 20.1414,
+    "weekdayCongestionFactor": 1.35,
+    "weekendCongestionFactor": 1.1
+  },
+
+  {
+    "type": "CITY",
+    "name": "Nyíregyháza",
+    "country": "Hungary",
+    "x": 47.9554,
+    "y": 21.7167,
+    "weekdayCongestionFactor": 1.25,
+    "weekendCongestionFactor": 1.05
+  },
+
+  {
+    "type": "CITY",
+    "name": "Békéscsaba",
+    "country": "Hungary",
+    "x": 46.6833,
+    "y": 21.0833,
+    "weekdayCongestionFactor": 1.2,
+    "weekendCongestionFactor": 1.0
+  },
+
+  {
+    "type": "CITY",
+    "name": "Budapest",
+    "country": "Hungary",
+    "x": 47.4979,
+    "y": 19.0402,
+    "weekdayCongestionFactor": 1.9,
+    "weekendCongestionFactor": 1.4
+  },
+
+  {
+    "type": "CITY",
+    "name": "Timisoara",
+    "country": "Romania",
+    "x": 45.7537,
+    "y": 21.2257,
+    "weekdayCongestionFactor": 1.9,
+    "weekendCongestionFactor": 1.15
+  },
+
+  {
+    "type": "CITY",
+    "name": "București",
+    "country": "Romania",
+    "x": 44.4323,
+    "y": 26.1063,
+    "weekdayCongestionFactor": 2.1,
+    "weekendCongestionFactor": 1.45
+  },
+
+  {
+    "type": "CITY",
+    "name": "Brașov",
+    "country": "Romania",
+    "x": 45.6580,
+    "y": 25.6012,
+    "weekdayCongestionFactor": 1.5,
+    "weekendCongestionFactor": 1.35
+  },
+
+  {
+    "type": "CITY",
+    "name": "Sibiu",
+    "country": "Romania",
+    "x": 45.7983,
+    "y": 24.1256,
+    "weekdayCongestionFactor": 1.4,
+    "weekendCongestionFactor": 1.15
+  },
+
+  {
+    "type": "CITY",
+    "name": "Iași",
+    "country": "Romania",
+    "x": 47.1585,
+    "y": 27.6014,
+    "weekdayCongestionFactor": 1.7,
+    "weekendCongestionFactor": 1.25
+  },
+
+  {
+    "type": "CITY",
+    "name": "Constanța",
+    "country": "Romania",
+    "x": 44.1598,
+    "y": 28.6348,
+    "weekdayCongestionFactor": 1.45,
+    "weekendCongestionFactor": 1.6
+  },
+
+  {
+    "type": "CITY",
+    "name": "Craiova",
+    "country": "Romania",
+    "x": 44.3302,
+    "y": 23.7949,
+    "weekdayCongestionFactor": 1.5,
+    "weekendCongestionFactor": 1.15
+  },
+
+  {
+    "type": "CITY",
+    "name": "Miskolc",
+    "country": "Hungary",
+    "x": 48.1035,
+    "y": 20.7914,
+    "weekdayCongestionFactor": 1.3,
+    "weekendCongestionFactor": 1.05
+  },
+
+  {
+    "type": "CITY",
+    "name": "Pécs",
+    "country": "Hungary",
+    "x": 46.0727,
+    "y": 18.2323,
+    "weekdayCongestionFactor": 1.3,
+    "weekendCongestionFactor": 1.05
+  },
+
+  {
+    "type": "CITY",
+    "name": "Győr",
+    "country": "Hungary",
+    "x": 47.6875,
+    "y": 17.6504,
+    "weekdayCongestionFactor": 1.35,
+    "weekendCongestionFactor": 1.1
+  },
+
+  {
+    "type": "CITY",
+    "name": "Viena",
+    "country": "Austria",
+    "x": 48.2082,
+    "y": 16.3738,
+    "weekdayCongestionFactor": 1.75,
+    "weekendCongestionFactor": 1.3
+  },
+
+  {
+    "type": "CITY",
+    "name": "Praga",
+    "country": "Czech Republic",
+    "x": 50.0755,
+    "y": 14.4378,
+    "weekdayCongestionFactor": 1.8,
+    "weekendCongestionFactor": 1.35
+  },
+
+  {
+    "type": "CITY",
+    "name": "Bratislava",
+    "country": "Slovakia",
+    "x": 48.1486,
+    "y": 17.1077,
+    "weekdayCongestionFactor": 1.55,
+    "weekendCongestionFactor": 1.15
+  },
+
+  {
+    "type": "CITY",
+    "name": "Kosice",
+    "country": "Slovakia",
+    "x": 48.7164,
+    "y": 21.2611,
+    "weekdayCongestionFactor": 1.35,
+    "weekendCongestionFactor": 1.1
+  },
+
+  {
+    "type": "CITY",
+    "name": "Belgrad",
+    "country": "Serbia",
+    "x": 44.7866,
+    "y": 20.4489,
+    "weekdayCongestionFactor": 1.85,
+    "weekendCongestionFactor": 1.3
+  },
+
+  {
+    "type": "CITY",
+    "name": "Novi Sad",
+    "country": "Serbia",
+    "x": 45.2671,
+    "y": 19.8335,
+    "weekdayCongestionFactor": 1.4,
+    "weekendCongestionFactor": 1.1
+  },
+
+  {
+    "type": "CITY",
+    "name": "Varșovia",
+    "country": "Poland",
+    "x": 52.2297,
+    "y": 21.0122,
+    "weekdayCongestionFactor": 1.85,
+    "weekendCongestionFactor": 1.3
+  },
+
+  {
+    "type": "CITY",
+    "name": "Cracovia",
+    "country": "Poland",
+    "x": 50.0647,
+    "y": 19.9450,
+    "weekdayCongestionFactor": 1.7,
+    "weekendCongestionFactor": 1.25
+  },
+
+  {
+    "type": "CITY",
+    "name": "München",
+    "country": "Germany",
+    "x": 48.1351,
+    "y": 11.5820,
+    "weekdayCongestionFactor": 1.8,
+    "weekendCongestionFactor": 1.25
+  },
+
+  {
+    "type": "CITY",
+    "name": "Berlin",
+    "country": "Germany",
+    "x": 52.5200,
+    "y": 13.4050,
+    "weekdayCongestionFactor": 1.75,
+    "weekendCongestionFactor": 1.3
+  },
+
+  {
+    "type": "CITY",
+    "name": "Milano",
+    "country": "Italy",
+    "x": 45.4642,
+    "y": 9.1900,
+    "weekdayCongestionFactor": 2.0,
+    "weekendCongestionFactor": 1.4
+  },
+
+  {
+    "type": "CITY",
+    "name": "Roma",
+    "country": "Italy",
+    "x": 41.9028,
+    "y": 12.4964,
+    "weekdayCongestionFactor": 2.1,
+    "weekendCongestionFactor": 1.5
+  },
+
+  {
+    "type": "CITY",
+    "name": "Paris",
+    "country": "France",
+    "x": 48.8566,
+    "y": 2.3522,
+    "weekdayCongestionFactor": 2.2,
+    "weekendCongestionFactor": 1.5
+  },
+
+  {
+    "type": "CITY",
+    "name": "Atena",
+    "country": "Greece",
+    "x": 37.9838,
+    "y": 23.7275,
+    "weekdayCongestionFactor": 1.9,
+    "weekendCongestionFactor": 1.35
+  },
+
+  {
+    "type": "CITY",
+    "name": "Sofia",
+    "country": "Bulgaria",
+    "x": 42.6977,
+    "y": 23.3219,
+    "weekdayCongestionFactor": 1.75,
+    "weekendCongestionFactor": 1.2
+  },
+
+  {
+    "type": "CITY",
+    "name": "Londra",
+    "country": "United Kingdom",
+    "x": 51.5074,
+    "y": -0.1278,
+    "weekdayCongestionFactor": 2.25,
+    "weekendCongestionFactor": 1.6
+  },
+
+  {
+    "type": "CITY",
+    "name": "Madrid",
+    "country": "Spain",
+    "x": 40.4168,
+    "y": -3.7038,
+    "weekdayCongestionFactor": 1.95,
+    "weekendCongestionFactor": 1.35
+  },
+
+  {
+    "type": "CITY",
+    "name": "Barcelona",
+    "country": "Spain",
+    "x": 41.3851,
+    "y": 2.1734,
+    "weekdayCongestionFactor": 1.9,
+    "weekendCongestionFactor": 1.4
+  },
+
+  {
+    "type": "CITY",
+    "name": "Amsterdam",
+    "country": "Netherlands",
+    "x": 52.3676,
+    "y": 4.9041,
+    "weekdayCongestionFactor": 1.65,
+    "weekendCongestionFactor": 1.3
+  },
+
+  {
+    "type": "CITY",
+    "name": "Bruxelles",
+    "country": "Belgium",
+    "x": 50.8503,
+    "y": 4.3517,
+    "weekdayCongestionFactor": 2.0,
+    "weekendCongestionFactor": 1.35
+  },
+
+  {
+    "type": "CITY",
+    "name": "Lisabona",
+    "country": "Portugal",
+    "x": 38.7223,
+    "y": -9.1393,
+    "weekdayCongestionFactor": 1.8,
+    "weekendCongestionFactor": 1.3
+  },
+
+  {
+    "type": "CITY",
+    "name": "Frankfurt",
+    "country": "Germany",
+    "x": 50.1109,
+    "y": 8.6821,
+    "weekdayCongestionFactor": 1.85,
+    "weekendCongestionFactor": 1.2
+  },
+
+  {
+    "type": "CITY",
+    "name": "Zürich",
+    "country": "Switzerland",
+    "x": 47.3769,
+    "y": 8.5417,
+    "weekdayCongestionFactor": 1.7,
+    "weekendCongestionFactor": 1.2
+  },
+
+  {
+    "type": "CITY",
+    "name": "Stockholm",
+    "country": "Sweden",
+    "x": 59.3293,
+    "y": 18.0686,
+    "weekdayCongestionFactor": 1.6,
+    "weekendCongestionFactor": 1.15
+  },
+
+  {
+    "type": "CITY",
+    "name": "Copenhaga",
+    "country": "Denmark",
+    "x": 55.6761,
+    "y": 12.5683,
+    "weekdayCongestionFactor": 1.55,
+    "weekendCongestionFactor": 1.15
+  },
+
+  {
+    "type": "CITY",
+    "name": "Istanbul",
+    "country": "Turkey",
+    "x": 41.0082,
+    "y": 28.9784,
+    "weekdayCongestionFactor": 2.4,
+    "weekendCongestionFactor": 1.7
+  }
+]

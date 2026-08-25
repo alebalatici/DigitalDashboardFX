@@ -1,0 +1,363 @@
+.badge {
+    -fx-padding: 6px 14px;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-border-width: 1.5px;
+}
+
+.badge-electric {
+    -fx-background-color: rgba(0, 240, 255, 0.15);
+    -fx-border-color: #00F0FF;
+    -fx-text-fill: #00F0FF;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 240, 255, 0.4), 8, 0, 0, 0);
+}
+
+.badge-gasoline {
+    -fx-background-color: rgba(0, 255, 102, 0.15);
+    -fx-border-color: #00FF66;
+    -fx-text-fill: #00FF66;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 255, 102, 0.4), 8, 0, 0, 0);
+}
+
+.badge-diesel {
+    -fx-background-color: rgba(255, 153, 0, 0.15);
+    -fx-border-color: #FF9900;
+    -fx-text-fill: #FF9900;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 153, 0, 0.4), 8, 0, 0, 0);
+}
+
+
+.customize-button {
+    -fx-background-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 25px 10px 25px;
+    -fx-cursor: hand;
+}
+
+.customize-button:hover {
+    -fx-text-fill: #FFFFFF;
+}
+
+.customize-button-electric {
+    -fx-border-color: #00F0FF;
+    -fx-text-fill: #00F0FF;
+}
+
+.customize-button-electric:hover {
+    -fx-background-color: #00F0FF;
+    -fx-effect: dropshadow(three-pass-box, #00F0FF, 12, 0, 0, 0);
+}
+
+.customize-button-gasoline {
+    -fx-border-color: #00FF66;
+    -fx-text-fill: #00FF66;
+}
+
+.customize-button-gasoline:hover {
+    -fx-background-color: #00FF66;
+    -fx-effect: dropshadow(three-pass-box, #00FF66, 12, 0, 0, 0);
+}
+
+.customize-button-diesel {
+    -fx-border-color: #FF9900;
+    -fx-text-fill: #FF9900;
+}
+
+.customize-button-diesel:hover {
+    -fx-background-color: #FF9900;
+    -fx-effect: dropshadow(three-pass-box, #FF9900, 12, 0, 0, 0);
+}
+
+
+.neon-progress-bar .track {
+    -fx-background-color: #1E1E2D;
+    -fx-background-radius: 6px;
+}
+
+.neon-progress-bar-electric .bar {
+     -fx-background-color: #00F0FF;
+     -fx-background-radius: 4px;
+     -fx-effect: dropshadow(three-pass-box, rgba(0, 240, 255, 0.8), 8, 0, 0, 0);
+}
+
+.neon-progress-bar-gasoline .bar {
+    -fx-background-color: #00FF66;
+    -fx-background-radius: 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 255, 102, 0.8), 8, 0, 0, 0);
+}
+
+.neon-progress-bar-diesel .bar {
+    -fx-background-color: #FF9900;
+    -fx-background-radius: 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 153, 0, 0.8), 8, 0, 0, 0);
+}
+
+
+
+.progress-electric .bar {
+    -fx-background-color: #00F0FF;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 240, 255, 0.8), 10, 0, 0, 0);
+}
+
+.progress-gasoline .bar {
+    -fx-background-color: #00FF66;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 255, 102, 0.8), 10, 0, 0, 0);
+}
+
+.progress-diesel .bar {
+    -fx-background-color: #FF9900;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 153, 0, 0.8), 10, 0, 0, 0);
+}
+
+
+
+.stat-label {
+    -fx-text-fill: #8a8a9e;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.stat-value {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.control-panel, .vehicle-card {
+    -fx-background-color: #12131c;
+    -fx-border-color: rgba(255, 0, 85, 0.3);
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 15, 0, 0, 5);
+}
+
+.vehicle-card {
+    -fx-border-color: #FF0055;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 85, 0.25), 15, 0, 0, 0);
+}
+
+.card-section-title {
+    -fx-text-fill: #FFB8CF;
+    -fx-font-family: 'Segoe UI', monospace;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.vehicle-main-name {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.custom-combo-box {
+    -fx-background-color: #1e1e2d;
+    -fx-border-color: #FF0055;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFFFFF;
+}
+
+.custom-combo-box .label {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+}
+
+.custom-combo-box .arrow-button .arrow {
+    -fx-background-color: #FF0055;
+}
+
+
+
+
+}.custom-scroll-pane {
+     -fx-background-color: transparent;
+     -fx-background: transparent;
+     -fx-border-color: transparent;
+ }
+
+.custom-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.custom-scroll-pane .scroll-bar:vertical {
+    -fx-background-color: #12131c;
+    -fx-pref-width: 8px;
+}
+
+.custom-scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #FF0055;
+    -fx-background-radius: 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 85, 0.6), 5, 0, 0, 0);
+}
+
+.custom-scroll-pane .scroll-bar:vertical .track,
+.custom-scroll-pane .scroll-bar:vertical .increment-button,
+.custom-scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+}
+
+.custom-checkbox {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-cursor: hand;
+}
+
+.custom-checkbox .box {
+    -fx-background-color: #1e1e2d;
+    -fx-border-color: #FF0055;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+
+.custom-checkbox:selected .box {
+    -fx-background-color: #FF0055;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 85, 0.8), 8, 0, 0, 0);
+}
+
+.custom-checkbox:selected .mark {
+    -fx-background-color: #FFFFFF;
+}
+
+.custom-panel {
+    -fx-border-color: #FF0055;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 15px 0 0 0;
+}
+
+.sub-title-custom-panel {
+    -fx-text-fill: #FF0055;
+    -fx-font-weight: bold;
+}
+
+
+.custom-edit-group {
+    -fx-background-color: rgba(255, 255, 255, 0.02);
+    -fx-border-color: rgba(255, 0, 85, 0.2);
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 4px;
+}
+
+.custom-edit-group:hover {
+    -fx-background-color: rgba(255, 0, 85, 0.05);
+}
+
+.edit-group-label {
+    -fx-text-fill: #E0E0E0;
+    -fx-font-family: 'Segoe UI', monospace;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.edit-group-field {
+    -fx-background-color: #0d0e15;
+    -fx-border-color: #333448;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: 'Consolas', monospace;
+
+    -fx-font-size: 15px;
+    -fx-padding: 10px 14px;
+    -fx-min-height: 35px;
+    -fx-pref-height: 35px;
+
+    -fx-min-width: 140px;
+    -fx-pref-width: 140px;
+}
+
+.edit-group-field:focused {
+    -fx-border-color: #FF0055;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 85, 0.4), 6, 0, 0, 0);
+}
+
+.edit-group-field.input-error {
+    -fx-border-color: #FF2A6D !important;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 42, 109, 0.8), 8, 0, 0, 0) !important;
+}
+
+
+.edit-group-error {
+    -fx-text-fill: #FF2A6D;
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 42, 109, 0.6), 4, 0, 0, 0);
+}
+
+
+.error-verification {
+    -fx-text-fill: #FF0000;
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, #D10000, 4, 0, 0, 0);
+}
+
+.succesfull-verification {
+    -fx-text-fill: #00FF66;
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 255, 102, 0.8), 4, 0, 0, 0);
+}
+
+
+.edit-group-field.input-error {
+    -fx-border-color: #FF2A6D !important;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 42, 109, 0.8), 8, 0, 0, 0) !important;
+}
+
+
+.status-label {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.status-excellent {
+    -fx-text-fill: #7B2CBF;
+    -fx-text-fill: #00FFCC;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 255, 204, 0.7), 6, 0, 0, 0);
+}
+
+.status-good {
+    -fx-text-fill: #FFE600;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 230, 0, 0.7), 6, 0, 0, 0);
+}
+
+
+.status-degraded {
+    -fx-text-fill: #BF55EC;
+    -fx-effect: dropshadow(three-pass-box, rgba(191, 85, 236, 0.7), 6, 0, 0, 0);
+}
+
+.status-critical {
+    -fx-text-fill: #FF0000;
+    -fx-effect: dropshadow(three-pass-box, #D10000, 6, 0, 0, 0);
+}
+
+.status-low{
+    -fx-text-fill: #00F0FF;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 240, 255, 0.8), 8, 0, 0, 0);
+}
+
+.status-pristine {
+    -fx-text-fill: #2ECC71;
+    -fx-effect: dropshadow(three-pass-box, rgba(46, 204, 113, 0.8), 8, 0, 0, 0);
+}
+
+.status-moderate {
+    -fx-text-fill: #FFA100;
+    -fx-effect: dropshadow(three-pass-box, #A36700, 8, 0, 0, 0);
+}

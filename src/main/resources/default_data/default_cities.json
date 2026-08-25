@@ -1,0 +1,101 @@
+[
+  {
+    "type": "CITY",
+    "name": "Cluj-Napoca",
+    "country": "Romania",
+    "x": 46.7712,
+    "y": 23.6236,
+    "weekdayCongestionFactor": 1.6,
+    "weekendCongestionFactor": 1.2
+  },
+
+  {
+    "type": "CITY",
+    "name": "Oradea",
+    "country": "Romania",
+    "x": 47.0519,
+    "y": 21.9404,
+    "weekdayCongestionFactor": 1.35,
+    "weekendCongestionFactor": 1.1
+  },
+
+  {
+    "type": "CITY",
+    "name": "Arad",
+    "country": "Romania",
+    "x": 46.1866,
+    "y": 21.3123,
+    "weekdayCongestionFactor": 1.3,
+    "weekendCongestionFactor": 1.05
+  },
+
+  {
+    "type": "CITY",
+    "name": "Satu Mare",
+    "country": "Romania",
+    "x": 47.7924,
+    "y": 22.8851,
+    "weekdayCongestionFactor": 1.25,
+    "weekendCongestionFactor": 1.05
+  },
+
+  {
+    "type": "CITY",
+    "name": "Debrecen",
+    "country": "Hungary",
+    "x": 47.5316,
+    "y": 21.6273,
+    "weekdayCongestionFactor": 1.4,
+    "weekendCongestionFactor": 1.1
+  },
+
+  {
+    "type": "CITY",
+    "name": "Szeged",
+    "country": "Hungary",
+    "x": 46.2530,
+    "y": 20.1414,
+    "weekdayCongestionFactor": 1.35,
+    "weekendCongestionFactor": 1.1
+  },
+
+  {
+    "type": "CITY",
+    "name": "Nyíregyháza",
+    "country": "Hungary",
+    "x": 47.9554,
+    "y": 21.7167,
+    "weekdayCongestionFactor": 1.25,
+    "weekendCongestionFactor": 1.05
+  },
+
+  {
+    "type": "CITY",
+    "name": "Békéscsaba",
+    "country": "Hungary",
+    "x": 46.6833,
+    "y": 21.0833,
+    "weekdayCongestionFactor": 1.2,
+    "weekendCongestionFactor": 1.0
+  },
+
+  {
+    "type": "CITY",
+    "name": "Budapest",
+    "country": "Hungary",
+    "x": 47.4979,
+    "y": 19.0402,
+    "weekdayCongestionFactor": 1.9,
+    "weekendCongestionFactor": 1.4
+  },
+
+  {
+    "type": "CITY",
+    "name": "Timisoara",
+    "country": "Romania",
+    "x": 45.7537,
+    "y": 21.2257,
+    "weekdayCongestionFactor": 1.9,
+    "weekendCongestionFactor": 1.15
+  }
+]

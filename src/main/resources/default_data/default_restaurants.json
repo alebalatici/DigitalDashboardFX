@@ -1,0 +1,111 @@
+[
+  {
+    "type": "RESTAURANT",
+    "name": "Samsara Foodhouse",
+    "country": "Romania",
+    "x": 46.7712,
+    "y": 23.5821,
+    "averageStopDuration":60,
+    "cousineType": "Vegetarian",
+    "rating": 4.7
+  },
+
+  {
+    "type": "RESTAURANT",
+    "name": "Via Restaurant",
+    "country": "Romania",
+    "x": 46.7680,
+    "y": 23.5900,
+    "averageStopDuration": 75,
+    "cousineType": "International",
+    "rating": 4.6
+  },
+
+  {
+    "type": "RESTAURANT",
+    "name": "Hanul Conac",
+    "country": "Romania",
+    "x": 46.7451,
+    "y": 23.4832,
+    "averageStopDuration": 45,
+    "cousineType": "Traditional",
+    "rating": 4.3
+  },
+
+  {
+    "type": "RESTAURANT",
+    "name": "Restaurant Piatra Craiului",
+    "country": "Romania",
+    "x": 46.9621,
+    "y": 22.6845,
+    "averageStopDuration": 50,
+    "cousineType": "Traditional",
+    "rating": 4.2
+  },
+
+  {
+    "type": "RESTAURANT",
+    "name": "Allegria (Oradea)",
+    "country": "Romania",
+    "x": 47.0540,
+    "y": 21.9330,
+    "averageStopDuration": 60,
+    "cousineType": "Italian",
+    "rating": 4.8
+  },
+
+  {
+    "type": "RESTAURANT",
+    "name": "Restaurant Cyrano",
+    "country": "Romania",
+    "x": 47.0562,
+    "y": 21.9354,
+    "averageStopDuration": 60,
+    "cousineType": "International",
+    "rating": 4.5
+  },
+
+  {
+    "type": "RESTAURANT",
+    "name": "Csarda Puszta",
+    "country": "Hungary",
+    "x": 47.2140,
+    "y": 21.5430,
+    "averageStopDuration": 50,
+    "cousineType": "Hungarian",
+    "rating": 4.4
+  },
+
+  {
+    "type": "RESTAURANT",
+    "name": "Liliom Restaurant",
+    "country": "Hungary",
+    "x": 47.1760,
+    "y": 20.1920,
+    "averageStopDuration": 55,
+    "cousineType": "Hungarian",
+    "rating": 4.3
+  },
+
+  {
+    "type": "RESTAURANT",
+    "name": "Gundel Etterem (Budapest)",
+    "country": "Hungary",
+    "x": 47.5178,
+    "y": 19.0782,
+    "averageStopDuration": 90,
+    "cousineType": "Fine Dining",
+    "rating": 4.9
+  },
+
+  {
+    "type": "RESTAURANT",
+    "name": "Trattoria Pomo D'oro (Budapest)",
+    "country": "Hungary",
+    "x": 47.5020,
+    "y": 19.0490,
+    "averageStopDuration": 70,
+    "cousineType": "Italian",
+    "rating": 4.7
+  }
+]

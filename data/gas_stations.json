@@ -1,0 +1,111 @@
+[
+  {
+    "type": "GAS_STATION",
+    "name": "OMV Gilau",
+    "country": "Romania",
+    "x": 46.7583,
+    "y": 23.3889,
+    "averageStopDuration": 15,
+    "hasElectricCharger": true,
+    "chargingPowerKw": 150.0
+  },
+
+  {
+    "type": "GAS_STATION",
+    "name": "Rompetrol Huedin",
+    "country": "Romania",
+    "x": 46.8672,
+    "y": 23.0245,
+    "averageStopDuration": 10,
+    "hasElectricCharger": false,
+    "chargingPowerKw": 0.0
+  },
+
+  {
+    "type": "GAS_STATION",
+    "name": "MOL Alesd",
+    "country": "Romania",
+    "x": 47.0578,
+    "y": 22.3941,
+    "averageStopDuration": 12,
+    "hasElectricCharger": true,
+    "chargingPowerKw": 50.0
+  },
+
+  {
+    "type": "GAS_STATION",
+    "name": "Petrom Oradea",
+    "country": "Romania",
+    "x": 47.0421,
+    "y": 21.9612,
+    "averageStopDuration": 10,
+    "hasElectricCharger": false,
+    "chargingPowerKw": 0.0
+  },
+
+  {
+    "type": "GAS_STATION",
+    "name": "OMV Bors Vama",
+    "country": "Romania",
+    "x": 47.1189,
+    "y": 21.8021,
+    "averageStopDuration": 20,
+    "hasElectricCharger": true,
+    "chargingPowerKw": 100.0
+  },
+
+  {
+    "type": "GAS_STATION",
+    "name": "MOL Berettyyoujfalu",
+    "country": "Hungary",
+    "x": 47.2154,
+    "y": 47.2154,
+    "averageStopDuration": 15,
+    "hasElectricCharger": true,
+    "chargingPowerKw": 150.0
+  },
+
+  {
+    "type": "GAS_STATION",
+    "name": "Shell Puspokladany",
+    "country": "Hungary",
+    "x": 47.3188,
+    "y": 21.1180,
+    "averageStopDuration": 20,
+    "hasElectricCharger": false,
+    "chargingPowerKw": 0.0
+  },
+
+  {
+    "type": "GAS_STATION",
+    "name": "MOL Szolnok Nord",
+    "country": "Hungary",
+    "x": 47.1891,
+    "y": 20.1873,
+    "averageStopDuration": 20,
+    "hasElectricCharger": true,
+    "chargingPowerKw": 350.0
+  },
+
+  {
+    "type": "GAS_STATION",
+    "name": "OMV Ullo M0 (Budapest Ring)",
+    "country": "Hungary",
+    "x": 47.3821,
+    "y": 19.3412,
+    "averageStopDuration": 25,
+    "hasElectricCharger": true,
+    "chargingPowerKw": 150.0
+  },
+
+  {
+    "type": "GAS_STATION",
+    "name": "MOL Alesd Vest",
+    "country": "Romania",
+    "x": 47.0612,
+    "y": 22.3815,
+    "averageStopDuration": 15,
+    "hasElectricCharger": true,
+    "chargingPowerKw": 75.0
+  }
+]

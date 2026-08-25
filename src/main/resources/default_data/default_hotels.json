@@ -1,0 +1,101 @@
+[
+  {
+    "type": "HOTEL",
+    "name": "Grand Hotel Italia (Cluj-Napoca)",
+    "country": "Romania",
+    "x": 46.7531,
+    "y": 23.6062,
+    "averageStopDuration": 480,
+    "stars": 5
+  },
+
+  {
+    "type": "HOTEL",
+    "name": "Hotel Sun",
+    "country": "Romania",
+    "x": 46.7650,
+    "y": 23.5510,
+    "averageStopDuration": 360,
+    "stars": 3
+  },
+
+  {
+    "type": "HOTEL",
+    "name": "Hotel Coada Lacului",
+    "country": "Romania",
+    "x": 46.7021,
+    "y": 23.1845,
+    "averageStopDuration": 420,
+    "stars": 3
+  },
+
+  {
+    "type": "HOTEL",
+    "name": "Pensiunea Montana (Huedin)",
+    "country": "Romania",
+    "x": 46.8645,
+    "y": 23.0298,
+    "averageStopDuration": 360,
+    "stars": 3
+  },
+
+  {
+    "type": "HOTEL",
+    "name": "Hotel Transit",
+    "country": "Romania",
+    "x": 47.0585,
+    "y": 22.3980,
+    "averageStopDuration": 300,
+    "stars": 3
+  },
+
+  {
+    "type": "HOTEL",
+    "name": "DoubleTree by Hilton (Oradea)",
+    "country": "Romania",
+    "x": 47.0520,
+    "y": 21.9421,
+    "averageStopDuration": 480,
+    "stars": 4
+  },
+
+  {
+    "type": "HOTEL",
+    "name": "Hotel Sky",
+    "country": "Romania",
+    "x": 47.0610,
+    "y": 21.5380,
+    "averageStopDuration": 360,
+    "stars": 3
+  },
+
+  {
+    "type": "HOTEL",
+    "name": "Hotel Tisza",
+    "country": "Hungary",
+    "x": 47.1742,
+    "y": 20.1985,
+    "averageStopDuration": 420,
+    "stars": 4
+  },
+
+  {
+    "type": "HOTEL",
+    "name": "Kempinski Hotel Corvinus (Budapest)",
+    "country": "Hungary",
+    "x": 47.4975,
+    "y": 19.0528,
+    "averageStopDuration": 540,
+    "stars": 5
+  },
+
+  {
+    "type": "HOTEL",
+    "name": "Hotel Puszta",
+    "country": "Hungary",
+    "x": 47.2180,
+    "y": 21.5380,
+    "averageStopDuration": 360,
+    "stars": 3
+  }
+]
