@@ -30,8 +30,10 @@ public class CustomizeVehicleForm {
         this.onRefreshRequired = onRefreshRequired;
     }
 
-    public VBox initializeCustomizablePane(Button customizeButton, Vehicle activeVehicle) {
+    public VBox initializeCustomizablePane(Vehicle activeVehicle) {
         VBox customizePanel = createAdvancedCustomizePanel(activeVehicle);
+
+        /*
         customizePanel.setManaged(false);
         customizePanel.setVisible(false);
 
@@ -49,7 +51,7 @@ public class CustomizeVehicleForm {
             } else {
                 customizeButton.setText("CUSTOMIZE PARAMETERS");
             }
-        });
+        });*/
         return customizePanel;
     }
 

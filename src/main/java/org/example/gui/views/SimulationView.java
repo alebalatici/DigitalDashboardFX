@@ -10,7 +10,7 @@ import org.example.calculations.PointOfInterestService;
 import org.example.calculations.VehicleService;
 import org.example.core.City;
 import org.example.core.Vehicle;
-import org.example.gui.utils.AppSession;
+import org.example.gui.utils.AppSessionGUI;
 import org.example.gui.utils.ColorUtils;
 import org.example.gui.utils.Initializer;
 
@@ -52,9 +52,9 @@ public class SimulationView extends Pane {
         VBox mainContainer = new VBox(20);
         mainContainer.setPadding(new Insets(25));
 
-        activeVehicle = AppSession.getInstance().getActiveVehicle();
-        sourceCity = AppSession.getInstance().getSourceCity();
-        destinationCity = AppSession.getInstance().getDestinationCity();
+        activeVehicle = AppSessionGUI.getInstance().getActiveVehicle();
+        sourceCity = AppSessionGUI.getInstance().getSourceCity();
+        destinationCity = AppSessionGUI.getInstance().getDestinationCity();
 
         HBox header = initializeHeader();
         GridPane simulationGrid = initializeSimulationGrid();

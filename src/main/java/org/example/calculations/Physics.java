@@ -17,6 +17,14 @@ public class Physics {
     private static final double MAX_LAT = 83.600842;
     private static final double MIN_LAT = -58.508473;
 
+    /**
+     * Calculatest the Havesine Distance between 2 points
+     * @param lat1 the lattitude of the first point
+     * @param lon1 the longitude of the first point
+     * @param lat2 the lattitude of the second point
+     * @param lon2 the longitude of the second point
+     * @return The Havesine Distance
+     */
     public static double HavesineDistance(double lat1, double lon1, double lat2, double lon2) {
         if (lat1 < -90.0 || lat1 > 90.0 || lat2 < -90.0 || lat2 > 90.0) {
             throw new IllegalArgumentException("Latitude must be between -90.0 and 90.0");
@@ -57,5 +65,44 @@ public class Physics {
 
         double y = SVG_HEIGHT * (1.0 - (mercatorY - mercatorMinY) / (mercatorMaxY - mercatorMinY)) + 1;
         return new double[]{x, y};
+    }
+
+    /**
+     * Returns the coordinates of a point that has the distance of distanceInKm from the first point
+     * @param p1X The x coordinate of the first point
+     * @param p1Y The y coordinate of the first point
+     * @param p2X The x coordinate of the second point
+     * @param p2Y The y coordinate of the second point
+     * @param distanceInKm The distance in km from the first point
+     * @return The coordinates of a point that has the distance of fistanceInKm from the first point
+     */
+    public static double[] virtualPointCoordinates(double p1X, double p1Y, double p2X, double p2Y, double distanceInKm) {
+        double totalDistance = HavesineDistance(p1X, p1Y, p2X, p2Y);
+
+        if (totalDistance <= distanceInKm) {
+            throw new IllegalArgumentException("Distance in km must not be greater than the total distance between p1 and p2.");
+        }
+
+        double lat1 = Math.toRadians(p1X);
+        double lon1 = Math.toRadians(p1Y);
+        double lat2 = Math.toRadians(p2X);
+        double lon2 = Math.toRadians(p2Y);
+
+        double delta = totalDistance / R;
+        double f = distanceInKm / totalDistance;
+
+        double a = Math.sin((1 - f) * delta) / Math.sin(delta);
+        double b = Math.sin(f * delta) / Math.sin(delta);
+
+        double x = a * Math.cos(lat1) * Math.cos(lon1) + b * Math.cos(lat2) * Math.cos(lon2);
+        double y = a * Math.cos(lat1) * Math.sin(lon1) + b * Math.cos(lat2) * Math.sin(lon2);
+        double z = a * Math.sin(lat1) + b * Math.sin(lat2);
+
+        double latVirtualRad = Math.atan2(z, Math.sqrt(x * x + y * y));
+        double lonVirtualRad = Math.atan2(y, x);
+
+        double virtualX = Math.toDegrees(latVirtualRad);
+        double virtualY = Math.toDegrees(lonVirtualRad);
+        return new double[]{virtualX, virtualY};
     }
 }

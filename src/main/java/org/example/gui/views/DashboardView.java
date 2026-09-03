@@ -7,11 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
+import org.example.calculations.CalculationsService;
 import org.example.calculations.PointOfInterestService;
 import org.example.calculations.VehicleService;
 import org.example.core.City;
 import org.example.core.Vehicle;
-import org.example.gui.utils.AppSession;
+import org.example.gui.utils.AppSessionGUI;
 import org.example.gui.utils.ColorUtils;
 import org.example.gui.utils.Initializer;
 
@@ -103,8 +104,8 @@ public class DashboardView extends BorderPane {
 
         mainGrid.getRowConstraints().addAll(row1, row2);
 
-        if (AppSession.getInstance().getActiveVehicle() == null) {
-            AppSession.getInstance().setActiveVehicle(srvVehicle.getRandomVehicle());
+        if (AppSessionGUI.getInstance().getActiveVehicle() == null) {
+            AppSessionGUI.getInstance().setActiveVehicle(srvVehicle.getRandomVehicle());
         }
 
         VBox activeVehicleCard = initializeActiveVehiclePanel();
@@ -126,7 +127,7 @@ public class DashboardView extends BorderPane {
         VBox card = new VBox(15);
         card.getStyleClass().add("vehicle-info-card");
 
-        activeVehicle = AppSession.getInstance().getActiveVehicle();
+        activeVehicle = AppSessionGUI.getInstance().getActiveVehicle();
 
         Label sectionTag = new Label("ACTIVE VEHICLE");
         sectionTag.getStyleClass().add("module-tag");
@@ -223,12 +224,12 @@ public class DashboardView extends BorderPane {
     }
 
     private VBox initializeRouteCard() {
-        this.sourceCity = AppSession.getInstance().getSourceCity();
-        this.destinationCity = AppSession.getInstance().getDestinationCity();
+        this.sourceCity = AppSessionGUI.getInstance().getSourceCity();
+        this.destinationCity = AppSessionGUI.getInstance().getDestinationCity();
 
         String subtitleText = "";
         if (sourceCity != null) {
-            subtitleText = sourceCity.getName() + " -> " + destinationCity.getName() + "\nLinear distance: " + (int) Math.ceil(srvPointOfInterest.HavesineDistance(sourceCity, destinationCity)) + " km";
+            subtitleText = sourceCity.getName() + " -> " + destinationCity.getName() + "\nLinear distance: " + (int) Math.ceil(CalculationsService.HavesineDistance(sourceCity, destinationCity)) + " km";
         }
 
         else {

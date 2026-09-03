@@ -82,9 +82,11 @@ public class PointOfInterestService {
         return repo.getAllPointsOfInterest(type);
     }
 
+    /*
     public double HavesineDistance(PointOfInterest p1, PointOfInterest p2) {
         return Physics.HavesineDistance(p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
+*/
 
     public List<City> getAllCitiesWithString(String string, List<City> listOfCities) {
         if (string == null || string.isEmpty()) {

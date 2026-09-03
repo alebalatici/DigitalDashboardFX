@@ -17,7 +17,7 @@ import org.example.calculations.VehicleService;
 import org.example.core.City;
 import org.example.core.Vehicle;
 import org.example.gui.components.MapComponents;
-import org.example.gui.utils.AppSession;
+import org.example.gui.utils.AppSessionGUI;
 import org.example.gui.utils.AutoCompleteHelper;
 import org.example.gui.utils.ColorUtils;
 import org.example.gui.utils.Initializer;
@@ -48,7 +48,7 @@ public class NavigationView extends BorderPane {
     private void initializeNavigationViewComponents() {
         this.getStyleClass().add("root");
 
-        activeVehicle = AppSession.getInstance().getActiveVehicle();
+        activeVehicle = AppSessionGUI.getInstance().getActiveVehicle();
         mapComponent = new MapComponents("map/world.svg");
         Pane mapPane = mapComponent.initializeMapView(-300, 200);
 
@@ -113,8 +113,8 @@ public class NavigationView extends BorderPane {
         startLocationInput = new TextField();
         destinationLocationInput = new TextField();
 
-        this.sourceCity = AppSession.getInstance().getSourceCity();
-        this.destinationCity = AppSession.getInstance().getDestinationCity();
+        this.sourceCity = AppSessionGUI.getInstance().getSourceCity();
+        this.destinationCity = AppSessionGUI.getInstance().getDestinationCity();
 
         if (sourceCity != null) {
             startLocationInput.setText(sourceCity.getStringSearching());
@@ -127,14 +127,14 @@ public class NavigationView extends BorderPane {
         }
 
         AutoCompleteHelper.setupAutoCompleteCity(startLocationInput, srvPointOfInterest, selectedCity -> {
-            AppSession.getInstance().setSourceCity(selectedCity);
-            this.sourceCity = AppSession.getInstance().getSourceCity();
+            AppSessionGUI.getInstance().setSourceCity(selectedCity);
+            this.sourceCity = AppSessionGUI.getInstance().getSourceCity();
             putSourceCityOnMap();
         });
 
         AutoCompleteHelper.setupAutoCompleteCity(destinationLocationInput, srvPointOfInterest, selectedCity -> {
-            AppSession.getInstance().setDestinationCity(selectedCity);
-            this.destinationCity = AppSession.getInstance().getDestinationCity();
+            AppSessionGUI.getInstance().setDestinationCity(selectedCity);
+            this.destinationCity = AppSessionGUI.getInstance().getDestinationCity();
             putDestinationCityOnMap();
         });
 

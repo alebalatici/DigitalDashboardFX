@@ -9,7 +9,7 @@ import org.example.core.Vehicle;
 import org.example.gui.components.settings_view_components.CustomizeVehicleForm;
 import org.example.gui.components.settings_view_components.GeneralVehicleInformationForm;
 import org.example.gui.components.settings_view_components.TelemetryForm;
-import org.example.gui.utils.AppSession;
+import org.example.gui.utils.AppSessionGUI;
 import org.example.gui.utils.AutoCompleteHelper;
 import org.example.gui.utils.ColorUtils;
 import org.example.gui.utils.Initializer;
@@ -36,16 +36,20 @@ public class SettingsView extends BorderPane {
     }
 
     public void refreshUI() {
-        this.activeVehicle = AppSession.getInstance().getActiveVehicle();
+        this.activeVehicle = AppSessionGUI.getInstance().getActiveVehicle();
         dynamicContent.getChildren().clear();
 
         if (activeVehicle != null) {
             HBox header = initializeHeader();
             VBox activeVehicleCard = initializeActiveVehicleCard();
             VBox vehicleCustomizeForm = initializeVehicleForm();
-            VBox telemetryForm = initializeTelemetryForm();
+      //      VBox telemetryForm = initializeTelemetryForm();
 
-            dynamicContent.getChildren().addAll(header, activeVehicleCard, vehicleCustomizeForm, telemetryForm);
+            //old
+         //   dynamicContent.getChildren().addAll(header, activeVehicleCard, vehicleCustomizeForm, telemetryForm);
+
+            //new
+            dynamicContent.getChildren().addAll(header, activeVehicleCard, vehicleCustomizeForm);
         }
     }
 
@@ -56,7 +60,7 @@ public class SettingsView extends BorderPane {
         mainCountainer.setPadding(new Insets(25));
         mainCountainer.setPrefWidth(380);
 
-        activeVehicle = AppSession.getInstance().getActiveVehicle();
+        activeVehicle = AppSessionGUI.getInstance().getActiveVehicle();
         generalVehicleInformation = new GeneralVehicleInformationForm(initializer);
         customizablePane = new CustomizeVehicleForm(initializer, srvVehicle, this::refreshUI);
         telemetryPane = new TelemetryForm(initializer, srvVehicle);
@@ -88,18 +92,31 @@ public class SettingsView extends BorderPane {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
+        /*
         Button customizeButton = new Button("CUSTOMIZE PARAMETERS");
         ColorUtils.updateCustomizeButtonColor(customizeButton, activeVehicle.getEngineType());
+         */
 
-        formHeader.getChildren().addAll(formTitle, spacer, customizeButton);
+        //old
+        //formHeader.getChildren().addAll(formTitle, spacer, customizeButton);
+
+        //new
+        formHeader.getChildren().addAll(formTitle, spacer);
+
 
         TextField chooseNewVehicle = new TextField();
         AutoCompleteHelper.setupAutoCompleteVehicle(chooseNewVehicle, srvVehicle, selectedVehicle -> {
-            AppSession.getInstance().setActiveVehicle(selectedVehicle);
+            AppSessionGUI.getInstance().setActiveVehicle(selectedVehicle);
             refreshUI();
         });
 
-        VBox customizePanel = customizablePane.initializeCustomizablePane(customizeButton, activeVehicle);
+        //old
+      //  VBox customizePanel = customizablePane.initializeCustomizablePane(customizeButton, activeVehicle);
+
+
+        //new
+        VBox customizePanel = customizablePane.initializeCustomizablePane(activeVehicle);
+
 
         VBox chooseBox = initializer.initializeInputGroup(chooseNewVehicle, "CHOOSE A NEW VEHICLE", "Type brand, model or release year (e. g. Porsche)...");
         vehicleForm.getChildren().addAll(formHeader, chooseBox, customizePanel);

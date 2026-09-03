@@ -3,8 +3,8 @@ package org.example.gui.utils;
 import org.example.core.City;
 import org.example.core.Vehicle;
 
-public class AppSession {
-    private static AppSession instance;
+public class AppSessionGUI {
+    private static AppSessionGUI instance;
 
     private City sourceCity;
     private City destinationCity;
@@ -14,11 +14,11 @@ public class AppSession {
     private double maxSpeedLimit = 130.0;
     private double maxTemperatureWarning = 90.0;
 
-    private AppSession() {}
+    private AppSessionGUI() {}
 
-    public static AppSession getInstance() {
+    public static AppSessionGUI getInstance() {
         if (instance == null) {
-            instance = new AppSession();
+            instance = new AppSessionGUI();
         }
         return instance;
     }
