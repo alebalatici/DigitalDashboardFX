@@ -12,7 +12,7 @@ import org.example.calculations.PointOfInterestService;
 import org.example.calculations.VehicleService;
 import org.example.core.City;
 import org.example.core.Vehicle;
-import org.example.gui.utils.AppSessionGUI;
+import org.example.session.AppSessionNavigation;
 import org.example.gui.utils.ColorUtils;
 import org.example.gui.utils.Initializer;
 
@@ -104,8 +104,8 @@ public class DashboardView extends BorderPane {
 
         mainGrid.getRowConstraints().addAll(row1, row2);
 
-        if (AppSessionGUI.getInstance().getActiveVehicle() == null) {
-            AppSessionGUI.getInstance().setActiveVehicle(srvVehicle.getRandomVehicle());
+        if (AppSessionNavigation.getInstance().getActiveVehicle() == null) {
+            AppSessionNavigation.getInstance().setActiveVehicle(srvVehicle.getRandomVehicle());
         }
 
         VBox activeVehicleCard = initializeActiveVehiclePanel();
@@ -127,7 +127,7 @@ public class DashboardView extends BorderPane {
         VBox card = new VBox(15);
         card.getStyleClass().add("vehicle-info-card");
 
-        activeVehicle = AppSessionGUI.getInstance().getActiveVehicle();
+        activeVehicle = AppSessionNavigation.getInstance().getActiveVehicle();
 
         Label sectionTag = new Label("ACTIVE VEHICLE");
         sectionTag.getStyleClass().add("module-tag");
@@ -224,8 +224,8 @@ public class DashboardView extends BorderPane {
     }
 
     private VBox initializeRouteCard() {
-        this.sourceCity = AppSessionGUI.getInstance().getSourceCity();
-        this.destinationCity = AppSessionGUI.getInstance().getDestinationCity();
+        this.sourceCity = AppSessionNavigation.getInstance().getSourceCity();
+        this.destinationCity = AppSessionNavigation.getInstance().getDestinationCity();
 
         String subtitleText = "";
         if (sourceCity != null) {

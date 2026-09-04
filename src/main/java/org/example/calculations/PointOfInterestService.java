@@ -12,6 +12,8 @@ import java.util.List;
 public class PointOfInterestService {
     private final PointOfInterestRepository repo;
 
+    private Graph graph;
+
     public PointOfInterestService(PointOfInterestRepository repo) {
         this.repo = repo;
     }
@@ -82,12 +84,6 @@ public class PointOfInterestService {
         return repo.getAllPointsOfInterest(type);
     }
 
-    /*
-    public double HavesineDistance(PointOfInterest p1, PointOfInterest p2) {
-        return Physics.HavesineDistance(p1.getX(), p1.getY(), p2.getX(), p2.getY());
-    }
-*/
-
     public List<City> getAllCitiesWithString(String string, List<City> listOfCities) {
         if (string == null || string.isEmpty()) {
             return new ArrayList<>(listOfCities);
@@ -124,5 +120,42 @@ public class PointOfInterestService {
 
     public List<Restaurant> getOnlyRestaurants() {
         return repo.getAllPointsOfInterest("RESTAURANT").stream().map(p -> (Restaurant) p).toList();
+    }
+
+    /**
+     * Builds and returns the graph based on the locations from the repository
+     * @param maxConnectDistanceKm The maximum connect radius. Only the nodes which have a Havesine Distance <= maxConnectDistanceKm will be connected
+     */
+    public void buildGraph(double maxConnectDistanceKm) {
+        this.graph = new Graph();
+        List<PointOfInterest> allPoints = repo.getAllPointsOfInterest("ALL");
+
+        for (PointOfInterest pointOfInterest : allPoints) {
+            graph.addNode(pointOfInterest);
+        }
+
+        for (int i = 0; i < allPoints.size(); i++) {
+            for (int j = i + 1; j < allPoints.size(); j++) {
+                PointOfInterest pointOfInterest1 = allPoints.get(i);
+                PointOfInterest pointOfInterest2 = allPoints.get(j);
+
+                double distance = CalculationsService.HavesineDistance(pointOfInterest1, pointOfInterest2);
+
+                if (distance <= maxConnectDistanceKm) {
+                    graph.addUndirectedEdge(pointOfInterest1, pointOfInterest2);
+                }
+            }
+        }
+    }
+
+    public void rebuildGraph(double maxConnectDistanceKm) {
+        buildGraph(maxConnectDistanceKm);
+    }
+
+    public Graph getGraph() {
+        if (this.graph == null) {
+            buildGraph(200.0);
+        }
+        return this.graph;
     }
 }

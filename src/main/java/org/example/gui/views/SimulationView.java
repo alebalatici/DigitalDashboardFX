@@ -10,9 +10,11 @@ import org.example.calculations.PointOfInterestService;
 import org.example.calculations.VehicleService;
 import org.example.core.City;
 import org.example.core.Vehicle;
-import org.example.gui.utils.AppSessionGUI;
+import org.example.session.AppSessionNavigation;
 import org.example.gui.utils.ColorUtils;
 import org.example.gui.utils.Initializer;
+
+import java.time.LocalDateTime;
 
 public class SimulationView extends Pane {
     private final VehicleService srvVehicle;
@@ -24,6 +26,8 @@ public class SimulationView extends Pane {
     private Vehicle activeVehicle;
     private City sourceCity;
     private City destinationCity;
+
+    private LocalDateTime startDateTime;
 
     private final Initializer initializer = new Initializer();
 
@@ -52,9 +56,10 @@ public class SimulationView extends Pane {
         VBox mainContainer = new VBox(20);
         mainContainer.setPadding(new Insets(25));
 
-        activeVehicle = AppSessionGUI.getInstance().getActiveVehicle();
-        sourceCity = AppSessionGUI.getInstance().getSourceCity();
-        destinationCity = AppSessionGUI.getInstance().getDestinationCity();
+        activeVehicle = AppSessionNavigation.getInstance().getActiveVehicle();
+        sourceCity = AppSessionNavigation.getInstance().getSourceCity();
+        destinationCity = AppSessionNavigation.getInstance().getDestinationCity();
+        startDateTime = AppSessionNavigation.getInstance().getStartDateTime();
 
         HBox header = initializeHeader();
         GridPane simulationGrid = initializeSimulationGrid();
@@ -91,12 +96,12 @@ public class SimulationView extends Pane {
 
         String labelText = "";
         String buttonText = "";
-        if (sourceCity != null) {
+        if (sourceCity != null && destinationCity != null && startDateTime != null) {
             labelText = "ROUTE: " + sourceCity.getName() + " -> " + destinationCity.getName();
             buttonText = "CHANGE ROUTE";
         }
         else {
-            labelText = "Please select the source and the destination city";
+            labelText = "Please select the source city, the destination city and the start date & time";
             buttonText = "GO TO NAVIGATION SECTION";
         }
 

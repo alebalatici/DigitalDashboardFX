@@ -10,7 +10,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.example.calculations.VehicleService;
 import org.example.core.Vehicle;
-import org.example.gui.utils.AppSessionGUI;
+import org.example.session.AppSessionNavigation;
 import org.example.gui.utils.ColorUtils;
 import org.example.gui.utils.Initializer;
 import org.example.utils.StringUtils;
@@ -32,11 +32,11 @@ public class TelemetryForm {
         VBox editGroup = new VBox(15);
 
         TextField textFieldMaxSpeed = new TextField();
-        int currentSpeedLimit = (int) AppSessionGUI.getInstance().getMaxSpeedLimit();
+        int currentSpeedLimit = (int) AppSessionNavigation.getInstance().getMaxSpeedLimit();
         VBox editMaxSpeed = initializer.initializeEditGroup(textFieldMaxSpeed, "SPEED LIMIT", "Current: " + currentSpeedLimit, srvVehicle::validateMaxSpeed);
 
         TextField textFieldMaxTemperature = new TextField();
-        int currentMaxTemperature = (int) AppSessionGUI.getInstance().getMaxTemperatureWarning();
+        int currentMaxTemperature = (int) AppSessionNavigation.getInstance().getMaxTemperatureWarning();
         VBox editMaxTemperature = initializer.initializeEditGroup(textFieldMaxTemperature, "TEMPERATURE LIMIT", "Current: " + currentMaxTemperature, srvVehicle::validateMaxTemperature);
 
         Button saveTelemetrySettingsButton = new Button("SAVE CHANGES");
@@ -61,8 +61,8 @@ public class TelemetryForm {
                 double maxSpeedLimit = StringUtils.parseDoubleOrDefault(textFieldMaxSpeed.getText(), currentSpeedLimit);
                 double maxTemperatureLimit = StringUtils.parseDoubleOrDefault(textFieldMaxTemperature.getText(), currentMaxTemperature);
 
-                AppSessionGUI.getInstance().setMaxSpeedLimit(maxSpeedLimit);
-                AppSessionGUI.getInstance().setMaxTemperatureWarning(maxTemperatureLimit);
+                AppSessionNavigation.getInstance().setMaxSpeedLimit(maxSpeedLimit);
+                AppSessionNavigation.getInstance().setMaxTemperatureWarning(maxTemperatureLimit);
                 initializer.showMessageLabel(verificationLabel, "SAVED", "succesfull-verification");
             }
 

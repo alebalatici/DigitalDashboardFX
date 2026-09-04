@@ -2,6 +2,7 @@ package org.example.calculations;
 import org.example.core.City;
 import org.example.core.PointOfInterest;
 import org.example.core.VirtualPoint;
+import org.example.session.AppSessionTelemetryPreferences;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -29,10 +30,10 @@ public class CalculationsService {
      * Generates a random traffic factor
      * 0.90 -> no traffic
      * 1.60 -> hard traffic
-     * @return The random traffic factor
      */
-    public static double generateTrafficFactor() {
-        return 0.90 + (1.60 - 0.90) * random.nextDouble();
+    public static void generateTrafficFactor() {
+        double trafficFactor = 0.90 + (1.60 - 0.90) * random.nextDouble();
+        AppSessionTelemetryPreferences.getInstance().setTrafficFactor(trafficFactor);
     }
 
     /**
@@ -40,7 +41,7 @@ public class CalculationsService {
      * @return the default speed for a journey depending on the speed preference
      */
     private static double DefaultSpeed() {
-        DistancePreference preference = AppSessionCALC.getInstance().getDistancePreference();
+        DistancePreference preference = AppSessionTelemetryPreferences.getInstance().getDistancePreference();
         double defaultSpeed = 0;
 
         switch (preference) {
@@ -54,8 +55,8 @@ public class CalculationsService {
                 defaultSpeed = 100 + (130 - 100) * random.nextDouble();
             }
             case CUSTOM -> {
-                double minimumSpeed = AppSessionCALC.getInstance().getCustomMinSpeed();
-                double maximumSpeed = AppSessionCALC.getInstance().getCustomMaxSpeed();
+                double minimumSpeed = AppSessionTelemetryPreferences.getInstance().getCustomMinSpeed();
+                double maximumSpeed = AppSessionTelemetryPreferences.getInstance().getCustomMaxSpeed();
                 defaultSpeed = minimumSpeed + (maximumSpeed - minimumSpeed) * random.nextDouble();
             }
         }
@@ -88,7 +89,8 @@ public class CalculationsService {
      * @return The vehicle's speed
      */
     public static double SpeedKmh(PointOfInterest p1, PointOfInterest p2, LocalDateTime arrivalTime) {
-        double openRoadSpeed = DefaultSpeed() / generateTrafficFactor();
+        double trafficFactor = AppSessionTelemetryPreferences.getInstance().getTrafficFactor();
+        double openRoadSpeed = DefaultSpeed() / trafficFactor;
 
         boolean isP1City = p1 instanceof City;
         boolean isP2City = p2 instanceof City;

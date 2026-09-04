@@ -13,7 +13,7 @@ import org.example.calculations.PointOfInterestService;
 import javafx.scene.control.Button;
 import org.example.core.*;
 import org.example.gui.components.MapComponents;
-import org.example.gui.utils.AppSessionGUI;
+import org.example.session.AppSessionNavigation;
 import org.example.gui.utils.ColorUtils;
 
 public class MapView extends BorderPane {
@@ -54,7 +54,7 @@ public class MapView extends BorderPane {
 
         Button homeButton = new Button("HOME");
 
-        Vehicle activeVehicle = AppSessionGUI.getInstance().getActiveVehicle();
+        Vehicle activeVehicle = AppSessionNavigation.getInstance().getActiveVehicle();
         ColorUtils.updateCustomizeButtonColor(homeButton, activeVehicle.getEngineType());
         homeButton.setOnAction(e -> {
             if (onHomePressed != null) {

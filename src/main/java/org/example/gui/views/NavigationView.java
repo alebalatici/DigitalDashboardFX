@@ -3,9 +3,7 @@ package org.example.gui.views;
 import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -17,10 +15,14 @@ import org.example.calculations.VehicleService;
 import org.example.core.City;
 import org.example.core.Vehicle;
 import org.example.gui.components.MapComponents;
-import org.example.gui.utils.AppSessionGUI;
+import org.example.session.AppSessionNavigation;
 import org.example.gui.utils.AutoCompleteHelper;
 import org.example.gui.utils.ColorUtils;
 import org.example.gui.utils.Initializer;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class NavigationView extends BorderPane {
     private final VehicleService srvVehicle;
@@ -42,13 +44,14 @@ public class NavigationView extends BorderPane {
         this.srvVehicle = srvVehicle;
         this.srvPointOfInterest = srvPointOfInterest;
         this.onHomePressed = onHomePressed;
+        initializer.applyCSS("/style/navigation.css", this);
         initializeNavigationViewComponents();
     }
 
     private void initializeNavigationViewComponents() {
         this.getStyleClass().add("root");
 
-        activeVehicle = AppSessionGUI.getInstance().getActiveVehicle();
+        activeVehicle = AppSessionNavigation.getInstance().getActiveVehicle();
         mapComponent = new MapComponents("map/world.svg");
         Pane mapPane = mapComponent.initializeMapView(-300, 200);
 
@@ -72,7 +75,14 @@ public class NavigationView extends BorderPane {
 
         HBox header = initializeHeader();
         VBox search = initializeSearchRoutePanel();
-        controlPanel.getChildren().addAll(header, search);
+        VBox dateTimePicker = initializeDateTimePicker();
+
+        searchButton = new Button("SEARCH ROUTES");
+        searchButton.setMaxWidth(Double.MAX_VALUE);
+        searchButton.setPrefHeight(45);
+        ColorUtils.updateCustomizeButtonColor(searchButton, activeVehicle.getEngineType());
+
+        controlPanel.getChildren().addAll(header, search, dateTimePicker, searchButton);
         return controlPanel;
     }
 
@@ -106,6 +116,43 @@ public class NavigationView extends BorderPane {
         mapComponent.setDestinationPin(coordinates[0], coordinates[1], destinationCity, "map/pin.png", 5);
     }
 
+    private VBox initializeDateTimePicker() {
+        VBox dateTimePicker = new VBox();
+        dateTimePicker.setSpacing(10);
+
+        Label dateLabel = new Label("START DATE");
+        dateLabel.getStyleClass().add("input-label-text");
+
+        DatePicker datePicker = new DatePicker();
+       // datePicker.setValue(LocalDate.now());
+        datePicker.getStyleClass().add("custom-date-picker");
+        TextField timeField = new TextField();
+
+        LocalDate startDate = AppSessionNavigation.getInstance().getStartDate();
+        if (startDate != null) {
+            datePicker.setValue(startDate);
+        }
+
+        LocalTime startTime = AppSessionNavigation.getInstance().getStartTime();
+        if (startTime != null) {
+            timeField.setText(startTime.toString());
+        }
+
+        datePicker.setOnAction(selectedDace -> {
+            AppSessionNavigation.getInstance().setStartDate(datePicker.getValue());
+        });
+
+        AutoCompleteHelper.setupAutoCompleteTime(timeField, selectedTime -> {
+            timeField.setText(selectedTime.toString());
+            AppSessionNavigation.getInstance().setStartTime(selectedTime);
+        });
+
+        VBox timeBox = initializer.initializeInputGroup(timeField, "START TIME", "ex: " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+
+        dateTimePicker.getChildren().addAll(dateLabel, datePicker, timeBox);
+        return dateTimePicker;
+    }
+
     private VBox initializeSearchRoutePanel() {
         VBox searchRoutePanel = new VBox();
         searchRoutePanel.setSpacing(10);
@@ -113,8 +160,8 @@ public class NavigationView extends BorderPane {
         startLocationInput = new TextField();
         destinationLocationInput = new TextField();
 
-        this.sourceCity = AppSessionGUI.getInstance().getSourceCity();
-        this.destinationCity = AppSessionGUI.getInstance().getDestinationCity();
+        this.sourceCity = AppSessionNavigation.getInstance().getSourceCity();
+        this.destinationCity = AppSessionNavigation.getInstance().getDestinationCity();
 
         if (sourceCity != null) {
             startLocationInput.setText(sourceCity.getStringSearching());
@@ -127,26 +174,21 @@ public class NavigationView extends BorderPane {
         }
 
         AutoCompleteHelper.setupAutoCompleteCity(startLocationInput, srvPointOfInterest, selectedCity -> {
-            AppSessionGUI.getInstance().setSourceCity(selectedCity);
-            this.sourceCity = AppSessionGUI.getInstance().getSourceCity();
+            AppSessionNavigation.getInstance().setSourceCity(selectedCity);
+            this.sourceCity = AppSessionNavigation.getInstance().getSourceCity();
             putSourceCityOnMap();
         });
 
         AutoCompleteHelper.setupAutoCompleteCity(destinationLocationInput, srvPointOfInterest, selectedCity -> {
-            AppSessionGUI.getInstance().setDestinationCity(selectedCity);
-            this.destinationCity = AppSessionGUI.getInstance().getDestinationCity();
+            AppSessionNavigation.getInstance().setDestinationCity(selectedCity);
+            this.destinationCity = AppSessionNavigation.getInstance().getDestinationCity();
             putDestinationCityOnMap();
         });
 
         VBox startBox = initializer.initializeInputGroup(startLocationInput, "ORIGIN POINT", "ex: Cluj-Napoca, Romania");
         VBox destBox = initializer.initializeInputGroup(destinationLocationInput, "DESTINATION", "ex: Paris, France");
 
-        searchButton = new Button("SEARCH ROUTES");
-        searchButton.setMaxWidth(Double.MAX_VALUE);
-        searchButton.setPrefHeight(45);
-        ColorUtils.updateCustomizeButtonColor(searchButton, activeVehicle.getEngineType());
-
-        searchRoutePanel.getChildren().addAll(startBox, destBox, searchButton);
+        searchRoutePanel.getChildren().addAll(startBox, destBox);
         return searchRoutePanel;
     }
 }

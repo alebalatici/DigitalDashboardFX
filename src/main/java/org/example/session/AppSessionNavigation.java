@@ -1,24 +1,32 @@
-package org.example.gui.utils;
+package org.example.session;
 
 import org.example.core.City;
 import org.example.core.Vehicle;
 
-public class AppSessionGUI {
-    private static AppSessionGUI instance;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-    private City sourceCity;
-    private City destinationCity;
+public class AppSessionNavigation {
+    private static AppSessionNavigation instance;
 
     private Vehicle activeVehicle;
 
     private double maxSpeedLimit = 130.0;
     private double maxTemperatureWarning = 90.0;
 
-    private AppSessionGUI() {}
+    private City sourceCity;
+    private City destinationCity;
+    private LocalDateTime startDateTime = null;
 
-    public static AppSessionGUI getInstance() {
+    private LocalDate startDate = null;
+    private LocalTime startTime = null;
+
+    private AppSessionNavigation() {}
+
+    public static AppSessionNavigation getInstance() {
         if (instance == null) {
-            instance = new AppSessionGUI();
+            instance = new AppSessionNavigation();
         }
         return instance;
     }
@@ -66,5 +74,28 @@ public class AppSessionGUI {
 
     public void setMaxTemperatureWarning(double maxTemperatureWarning) {
         this.maxTemperatureWarning = maxTemperatureWarning;
+    }
+
+    public LocalDateTime getStartDateTime() {
+        if (startDate != null && startTime != null) {
+            startDateTime = LocalDateTime.of(startDate, startTime);
+        }
+        return startDateTime;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
     }
 }

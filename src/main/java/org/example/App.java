@@ -8,8 +8,6 @@ import org.example.gui.AppGUI;
 import org.example.repo.PointOfInterestFileRepository;
 import org.example.repo.VehicleFileRepository;
 
-import java.io.File;
-
 public class App
 {
     public static void main( String[] args )
@@ -23,6 +21,8 @@ public class App
         repoPointOfInterest.loadFromFile("data/hotels.json");
         repoPointOfInterest.loadFromFile("data/restaurants.json");
         PointOfInterestService srvPointOfInterest = new PointOfInterestService(repoPointOfInterest);
+
+        srvPointOfInterest.buildGraph(200);
 
         AppGUI.setServices(srvVehicle, srvPointOfInterest);
         Application.launch(AppGUI.class, args);

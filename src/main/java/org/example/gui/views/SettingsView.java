@@ -9,7 +9,7 @@ import org.example.core.Vehicle;
 import org.example.gui.components.settings_view_components.CustomizeVehicleForm;
 import org.example.gui.components.settings_view_components.GeneralVehicleInformationForm;
 import org.example.gui.components.settings_view_components.TelemetryForm;
-import org.example.gui.utils.AppSessionGUI;
+import org.example.session.AppSessionNavigation;
 import org.example.gui.utils.AutoCompleteHelper;
 import org.example.gui.utils.ColorUtils;
 import org.example.gui.utils.Initializer;
@@ -36,7 +36,7 @@ public class SettingsView extends BorderPane {
     }
 
     public void refreshUI() {
-        this.activeVehicle = AppSessionGUI.getInstance().getActiveVehicle();
+        this.activeVehicle = AppSessionNavigation.getInstance().getActiveVehicle();
         dynamicContent.getChildren().clear();
 
         if (activeVehicle != null) {
@@ -60,7 +60,7 @@ public class SettingsView extends BorderPane {
         mainCountainer.setPadding(new Insets(25));
         mainCountainer.setPrefWidth(380);
 
-        activeVehicle = AppSessionGUI.getInstance().getActiveVehicle();
+        activeVehicle = AppSessionNavigation.getInstance().getActiveVehicle();
         generalVehicleInformation = new GeneralVehicleInformationForm(initializer);
         customizablePane = new CustomizeVehicleForm(initializer, srvVehicle, this::refreshUI);
         telemetryPane = new TelemetryForm(initializer, srvVehicle);
@@ -106,7 +106,7 @@ public class SettingsView extends BorderPane {
 
         TextField chooseNewVehicle = new TextField();
         AutoCompleteHelper.setupAutoCompleteVehicle(chooseNewVehicle, srvVehicle, selectedVehicle -> {
-            AppSessionGUI.getInstance().setActiveVehicle(selectedVehicle);
+            AppSessionNavigation.getInstance().setActiveVehicle(selectedVehicle);
             refreshUI();
         });
 
