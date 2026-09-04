@@ -24,10 +24,32 @@
 │   └── test/java/org/example/  # Unit tests
 └── pom.xml / build.gradle
 ```
-
+@@ Domain Model & Class Hierarchy
 ```mermaid
 classDiagram
-    %% Clasa Abstractă Rădăcină
+    class EngineType {
+        <<enumeration>>
+        ICE_GASOLINE
+        ICE_DIESEL
+        ELECTRIC
+    }
+
+    class Vehicle {
+        -int id
+        -String brand
+        -String model
+        -int releaseYear
+        -int totalKilometres
+        -EngineType engineType
+        -double fuelCapacity
+        -double currentFuel
+        -double baseConsumption
+        -double currentSpeed
+        -double currentRpm
+        -double engineTemperature
+        -double batteryHealth
+    }
+
     class PointOfInterest {
         <<abstract>>
         -String name
@@ -36,19 +58,16 @@ classDiagram
         -double y
     }
 
-    %% Clasa derivată direct din PointOfInterest
     class City {
         -double weekdayCongestionFactor
         -double weekendCongestionFactor
     }
 
-    %% Clasa Abstractă Intermediară
     class RestStation {
         <<abstract>>
         -int averageStopDuration
     }
 
-    %% Clasele derivate din RestStation
     class GasStation {
         -boolean hasElectricCharger
         -double chargingPowerKw
@@ -63,7 +82,6 @@ classDiagram
         -double rating
     }
 
-    %% Relațiile de Moștenire (Extends)
     PointOfInterest <|-- City
     PointOfInterest <|-- RestStation
     RestStation <|-- GasStation
