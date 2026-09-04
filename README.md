@@ -4,7 +4,7 @@
 ## Project Structure
 ```
 .
-├── data/                       # JSON Runtime Filses
+├── data/                       # JSON Runtime Files
 ├── src/
 │   ├── main/
 │   │   ├── java/org/example/
