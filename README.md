@@ -1,6 +1,29 @@
 # DigitalDashboardFX
 ### work in progress
 
+##Project Structure
+```
+.
+├── data/                       # JSON Runtime Filses
+├── src/
+│   ├── main/
+│   │   ├── java/org/example/
+│   │   │   ├── calculations/   # Physics formulas / Graph Algorithms needed for Journey parameter calculation
+│   │   │   ├── core/           # Domain Entities and Validators
+│   │   │   ├── gui/            # Components and Views - JavaFX
+│   │   │   ├── repo/           # Repositories (In-Memory / File Storage)
+│   │   │   ├── session/        # Saves all the parameters for the current section
+│   │   │   └── utils/          # General Classes for files and string conversion management
+│   │   │
+│   │   └── resources/          # Static Resources
+│   │       ├── animations/     # Media Files (GIF / MP4)
+│   │       ├── default_data/   # Test data
+│   │       ├── map/            # SVG and PNG map components
+│   │       └── style/          # CSS files for the application's theme
+│   │
+│   └── test/java/org/example/  # Unit tests
+└── pom.xml / build.gradle
+```
 <img width="1918" height="974" alt="Screenshot (23)" src="https://github.com/user-attachments/assets/abba0b53-e8ca-4c53-b56c-378f8ebb0f81" />
 
 <img width="1272" height="842" alt="Screenshot (24)" src="https://github.com/user-attachments/assets/582c38fa-41bd-410e-8cb5-cd564e2f5915" />
