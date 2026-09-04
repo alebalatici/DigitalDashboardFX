@@ -1,7 +1,7 @@
 # DigitalDashboardFX
 ### work in progress
 
-##Project Structure
+## Project Structure
 ```
 .
 ├── data/                       # JSON Runtime Filses
