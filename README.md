@@ -24,7 +24,7 @@
 │   └── test/java/org/example/  # Unit tests
 └── pom.xml / build.gradle
 ```
-@@ Domain Model & Class Hierarchy
+## Domain Model & Class Hierarchy
 ```mermaid
 classDiagram
     class EngineType {
