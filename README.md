@@ -24,6 +24,52 @@
 │   └── test/java/org/example/  # Unit tests
 └── pom.xml / build.gradle
 ```
+
+```mermaid
+classDiagram
+    %% Clasa Abstractă Rădăcină
+    class PointOfInterest {
+        <<abstract>>
+        -String name
+        -String country
+        -double x
+        -double y
+    }
+
+    %% Clasa derivată direct din PointOfInterest
+    class City {
+        -double weekdayCongestionFactor
+        -double weekendCongestionFactor
+    }
+
+    %% Clasa Abstractă Intermediară
+    class RestStation {
+        <<abstract>>
+        -int averageStopDuration
+    }
+
+    %% Clasele derivate din RestStation
+    class GasStation {
+        -boolean hasElectricCharger
+        -double chargingPowerKw
+    }
+
+    class Hotel {
+        -int stars
+    }
+
+    class Restaurant {
+        -String cuisineType
+        -double rating
+    }
+
+    %% Relațiile de Moștenire (Extends)
+    PointOfInterest <|-- City
+    PointOfInterest <|-- RestStation
+    RestStation <|-- GasStation
+    RestStation <|-- Hotel
+    RestStation <|-- Restaurant
+```
 <img width="1918" height="974" alt="Screenshot (23)" src="https://github.com/user-attachments/assets/abba0b53-e8ca-4c53-b56c-378f8ebb0f81" />
 
 <img width="1272" height="842" alt="Screenshot (24)" src="https://github.com/user-attachments/assets/582c38fa-41bd-410e-8cb5-cd564e2f5915" />
