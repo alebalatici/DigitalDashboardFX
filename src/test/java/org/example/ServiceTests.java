@@ -1,11 +1,7 @@
 package org.example;
 
-import org.example.calculations.PointOfInterestService;
-import org.example.calculations.ServiceException;
-import org.example.calculations.VehicleService;
-import org.example.core.City;
-import org.example.core.Vehicle;
-import org.example.core.VehicleValidator;
+import org.example.calculations.*;
+import org.example.core.*;
 import org.example.repo.PointOfInterestFileRepository;
 import org.example.repo.VehicleFileRepository;
 import org.example.repo.VehicleRepository;
@@ -16,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.nio.file.Path;
+import java.util.List;
 
 public class ServiceTests {
     @TempDir
@@ -154,4 +151,51 @@ public class ServiceTests {
         assertEquals(10, vehicle.getBaseConsumption());
         assertThrows(ServiceException.class, () -> srv.modifyVehicleParameters(vehicle, 100, 500, 10));
     }
+
+    @Test
+    void testBuildGraph() {
+        PointOfInterestFileRepository repoPointOfInterest = new PointOfInterestFileRepository(tempFilePathCities);
+        repoPointOfInterest.loadFromFile(tempFilePathGasStations);
+        repoPointOfInterest.loadFromFile(tempFilePathHotels);
+        repoPointOfInterest.loadFromFile(tempFilePathRestaurants);
+        PointOfInterestService srvPointOfInterest = new PointOfInterestService(repoPointOfInterest);
+
+        srvPointOfInterest.buildGraph(200);
+        Graph graph = srvPointOfInterest.getGraph();
+        assertNotNull(graph);
+
+        int expectedNodesCount = repoPointOfInterest.getAllPointsOfInterest("ALL").size();
+        assertTrue(expectedNodesCount <= graph.getAllNodes().size());
+
+        List<PointOfInterest> allRealPoints = repoPointOfInterest.getAllPointsOfInterest("ALL");
+
+        for (PointOfInterest pointOfInterest : allRealPoints) {
+            assertTrue(graph.getAllNodes().contains(pointOfInterest));
+        }
+
+        boolean hasVirtualPoints = graph.getAllNodes().stream().anyMatch(node -> node instanceof VirtualPoint);
+        assertTrue(hasVirtualPoints);
+
+        PointOfInterest cityA = graph.findByName("Cluj-Napoca");
+        if (cityA != null) {
+            List<Edge> edgesFromA = graph.getEdgesFrom(cityA);
+            boolean isConnectedToVirtualPoint = edgesFromA.stream().anyMatch(edge -> edge.getDestination() instanceof VirtualPoint);
+
+            assertTrue(isConnectedToVirtualPoint);
+        }
+
+        srvPointOfInterest.rebuildGraph(50);
+
+        PointOfInterest cityB = graph.findByName("Paris");
+        PointOfInterest cityC = graph.findByName("Budapest");
+
+        if (cityB != null && cityC != null) {
+            List<Edge> edgesFromB = graph.getEdgesFrom(cityB);
+            boolean isConnectedToC = edgesFromB.stream().anyMatch(edge -> edge.getDestination().equals(cityC));
+
+            assertFalse(isConnectedToC);
+        }
+    }
+
+
 }

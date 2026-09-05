@@ -142,7 +142,43 @@ public class PointOfInterestService {
                 double distance = CalculationsService.HavesineDistance(pointOfInterest1, pointOfInterest2);
 
                 if (distance <= maxConnectDistanceKm) {
-                    graph.addUndirectedEdge(pointOfInterest1, pointOfInterest2);
+                    boolean p1IsCity = pointOfInterest1 instanceof City;
+                    boolean p2IsCity = pointOfInterest2 instanceof City;
+
+                    if (p1IsCity && p2IsCity && distance > 20.0) {
+                        try
+                        {
+                            VirtualPoint vp1 = CalculationsService.createVirtualPointAtDistance(pointOfInterest1, pointOfInterest2, 10.0);
+                            VirtualPoint vp2 = CalculationsService.createVirtualPointAtDistance(pointOfInterest2, pointOfInterest1, 10.0);
+
+                            graph.addNode(vp1);
+                            graph.addNode(vp2);
+
+                            graph.addUndirectedEdge(pointOfInterest1, vp1);
+                            graph.addUndirectedEdge(vp1, vp2);
+                            graph.addUndirectedEdge(vp2, pointOfInterest2);
+                        }
+
+                        catch (Exception e) {
+                            graph.addUndirectedEdge(pointOfInterest1, pointOfInterest2);
+                        }
+                    }
+
+                    else if (p1IsCity && distance > 10.0 && !p2IsCity) {
+                        insertSingleVirtualPoint(pointOfInterest1, pointOfInterest2, 10.0);
+                    }
+
+                    else if (p2IsCity && distance > 10.0 && !p1IsCity) {
+                        insertSingleVirtualPoint(pointOfInterest2, pointOfInterest1, 10.0);
+                    }
+
+                    else if (p1IsCity && p2IsCity && distance > 10.0) {
+                        insertSingleVirtualPoint(pointOfInterest1, pointOfInterest2, 10.0);
+                    }
+
+                    else {
+                        graph.addUndirectedEdge(pointOfInterest1, pointOfInterest2);
+                    }
                 }
             }
         }
@@ -157,5 +193,19 @@ public class PointOfInterestService {
             buildGraph(200.0);
         }
         return this.graph;
+    }
+
+    private void insertSingleVirtualPoint(PointOfInterest source, PointOfInterest destination, double offsetKm) {
+        try {
+            VirtualPoint virtualPoint = CalculationsService.createVirtualPointAtDistance(source, destination, offsetKm);
+            graph.addNode(virtualPoint);
+
+            graph.addUndirectedEdge(source, virtualPoint);
+            graph.addUndirectedEdge(virtualPoint, destination);
+        }
+
+        catch (Exception e) {
+            graph.addUndirectedEdge(source, destination);
+        }
     }
 }

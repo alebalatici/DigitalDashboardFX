@@ -1,6 +1,93 @@
 # DigitalDashboardFX
-### work in progress
+### -------- work in progress -----------------------------------------------------------
 
+## Project Structure
+```
+.
+├── data/                       # JSON Runtime Files
+├── src/
+│   ├── main/
+│   │   ├── java/org/example/
+│   │   │   ├── calculations/   # Physics formulas / Graph Algorithms needed for Journey parameter calculation
+│   │   │   ├── core/           # Domain Entities and Validators
+│   │   │   ├── gui/            # Components and Views - JavaFX
+│   │   │   ├── repo/           # Repositories (In-Memory / File Storage)
+│   │   │   ├── session/        # Saves all the parameters for the current section
+│   │   │   └── utils/          # General Classes for files and string conversion management
+│   │   │
+│   │   └── resources/          # Static Resources
+│   │       ├── animations/     # Media Files (GIF / MP4)
+│   │       ├── default_data/   # Test data
+│   │       ├── map/            # SVG and PNG map components
+│   │       └── style/          # CSS files for the application's theme
+│   │
+│   └── test/java/org/example/  # Unit tests
+└── pom.xml / build.gradle
+```
+## Domain Model & Class Hierarchy
+```mermaid
+classDiagram
+    class EngineType {
+        <<enumeration>>
+        ICE_GASOLINE
+        ICE_DIESEL
+        ELECTRIC
+    }
+
+    class Vehicle {
+        -int id
+        -String brand
+        -String model
+        -int releaseYear
+        -int totalKilometres
+        -EngineType engineType
+        -double fuelCapacity
+        -double currentFuel
+        -double baseConsumption
+        -double currentSpeed
+        -double currentRpm
+        -double engineTemperature
+        -double batteryHealth
+    }
+
+    class PointOfInterest {
+        <<abstract>>
+        -String name
+        -String country
+        -double x
+        -double y
+    }
+
+    class City {
+        -double weekdayCongestionFactor
+        -double weekendCongestionFactor
+    }
+
+    class RestStation {
+        <<abstract>>
+        -int averageStopDuration
+    }
+
+    class GasStation {
+        -boolean hasElectricCharger
+        -double chargingPowerKw
+    }
+
+    class Hotel {
+        -int stars
+    }
+
+    class Restaurant {
+        -String cuisineType
+        -double rating
+    }
+
+    PointOfInterest <|-- City
+    PointOfInterest <|-- RestStation
+    RestStation <|-- GasStation
+    RestStation <|-- Hotel
+    RestStation <|-- Restaurant
+```
 <img width="1918" height="974" alt="Screenshot (23)" src="https://github.com/user-attachments/assets/abba0b53-e8ca-4c53-b56c-378f8ebb0f81" />
 
 <img width="1272" height="842" alt="Screenshot (24)" src="https://github.com/user-attachments/assets/582c38fa-41bd-410e-8cb5-cd564e2f5915" />
