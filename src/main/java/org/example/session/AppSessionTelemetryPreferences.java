@@ -10,7 +10,9 @@ public class AppSessionTelemetryPreferences {
     private double customMinSpeed = 50.0;
     private double customMaxSpeed = 100.0;
     private RoutingCriterion routingCriterion = RoutingCriterion.MIN_DISTANCE;
-    private double trafficFactor = 0.90;
+
+    private double maxDriveHoursBeforeRest = 4.0;
+    private double maxDriveHoursBeforeHotel = 14.0;
 
     private AppSessionTelemetryPreferences() {}
 
@@ -53,11 +55,19 @@ public class AppSessionTelemetryPreferences {
         this.routingCriterion = routingCriterion;
     }
 
-    public double getTrafficFactor() {
-        return trafficFactor;
+    public double getMaxDriveHoursBeforeRest() {
+        return maxDriveHoursBeforeRest;
     }
 
-    public void setTrafficFactor(double trafficFactor) {
-        this.trafficFactor = trafficFactor;
+    public void setMaxDriveHoursBeforeRest(double maxDriveHoursBeforeRest) {
+        this.maxDriveHoursBeforeRest = maxDriveHoursBeforeRest;
+    }
+
+    public double getMaxDriveHoursBeforeHotel() {
+        return maxDriveHoursBeforeHotel;
+    }
+
+    public void setMaxDriveHoursBeforeHotel(double maxDriveHoursBeforeHotel) {
+        this.maxDriveHoursBeforeHotel = maxDriveHoursBeforeHotel;
     }
 }

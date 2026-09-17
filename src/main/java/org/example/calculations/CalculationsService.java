@@ -29,18 +29,17 @@ public class CalculationsService {
     /**
      * Generates a random traffic factor
      * 0.90 -> no traffic
-     * 1.60 -> hard traffic
+     * 1.25 -> heavy open road trafic
      */
-    public static void generateTrafficFactor() {
-        double trafficFactor = 0.90 + (1.60 - 0.90) * random.nextDouble();
-        AppSessionTelemetryPreferences.getInstance().setTrafficFactor(trafficFactor);
+    public static double generateTrafficFactor() {
+        //AppSessionTelemetryPreferences.getInstance().setTrafficFactor(trafficFactor);
+        return 0.90 + (1.25 - 0.90) * random.nextDouble();
     }
 
     /**
      * Returns the default speed for a journey depending on the speed preference
-     * @return the default speed for a journey depending on the speed preference
      */
-    private static double DefaultSpeed() {
+    public static double initializeDefaultSpeed() {
         DistancePreference preference = AppSessionTelemetryPreferences.getInstance().getDistancePreference();
         double defaultSpeed = 0;
 
@@ -66,7 +65,7 @@ public class CalculationsService {
     /**
      * Returns the congestion factor of the city in a given day
      * @param city The city
-     * @param arrivalTime The arrival time
+     * @param arrivalTime The arrival time at the city
      * @return The city's congestion factor
      */
     public static double getCityCongestionFactor(City city, LocalDateTime arrivalTime) {
@@ -85,30 +84,36 @@ public class CalculationsService {
      * We assume that the vehicle's speed is uniform throughout the journey between p1 and p2
      * @param p1 The first point of interest
      * @param p2 The second point of interest
-     * @param arrivalTime The arrival time
+     * We have 3 correct cases: P1 City and P2 VirtualPoint, P1 VirtualPoint and P2 City and neither P1 or P2 are cities
      * @return The vehicle's speed
+     * Note: Because we have Virtual Points, we have to assume that p1 and p2 can't both be cities
      */
-    public static double SpeedKmh(PointOfInterest p1, PointOfInterest p2, LocalDateTime arrivalTime) {
-        double trafficFactor = AppSessionTelemetryPreferences.getInstance().getTrafficFactor();
-        double openRoadSpeed = DefaultSpeed() / trafficFactor;
+    public static double SpeedKmh(PointOfInterest p1, PointOfInterest p2, double trafficFactor, double defaultSpeed) {
+        double openRoadSpeed = defaultSpeed / trafficFactor;
 
         boolean isP1City = p1 instanceof City;
         boolean isP2City = p2 instanceof City;
 
-        if (!isP1City && !isP2City) {
-            return openRoadSpeed;
+        boolean isP1VirtualPoint = p1 instanceof VirtualPoint;
+        boolean isP2VirtualPoint = p2 instanceof VirtualPoint;
+
+        if (isP1City && isP2City) {
+            throw new ServiceException(p1.getName() + " and " + p2.getName() + " are both cities, thus there cannot be an edge between them");
         }
 
-        City city;
         if (isP1City) {
-            city = (City) p1;
+            if (!isP2VirtualPoint) {
+                throw new ServiceException(p1.getName() + " is a city but " + p2.getName() + " is not a VirtualPoint");
+            }
         }
 
-        else {
-            city = (City) p2;
+        else if (isP2City) {
+            if (!isP1VirtualPoint) {
+                throw new ServiceException(p2.getName() + " is a city but " + p1.getName() + " is not a VirtualPoint");
+            }
         }
 
-        return openRoadSpeed / getCityCongestionFactor(city, arrivalTime);
+        return openRoadSpeed;
     }
 
     /**
