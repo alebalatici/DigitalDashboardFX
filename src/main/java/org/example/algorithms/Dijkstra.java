@@ -53,8 +53,9 @@ public class Dijkstra {
 
         if (fuelAfterDrive < 0) {
             return false;
-        }/*
+        }
 
+        /*
         if (fuelAfterDrive <= 15 && !(neighbour instanceof GasStation) && !reachesDestination) {
             return false;
         }*/
@@ -106,6 +107,31 @@ public class Dijkstra {
 
         Collections.reverse(path);
         return new PathResult(path, minCosts.get(destination), totalMinutes, totalKm, arrivalTimes);
+    }
+
+    public static double penalizeEdgeWeight(Vehicle vehicle, JourneyState currentState, PointOfInterest neighbour, PointOfInterest destination) {
+        double fuelRatio = currentState.fuelLiters / vehicle.getFuelCapacity();
+        double totalPenalization = 0.0;
+        if (fuelRatio < 0.30 && !(neighbour instanceof GasStation) && !(neighbour.equals(destination))) {
+            totalPenalization += 5000.0 * (0.30 - fuelRatio);
+        }
+
+        double maxHoursSinceRest = AppSessionTelemetryPreferences.getInstance().getMaxDriveHoursBeforeRest();
+        double hoursSinceRest = currentState.driveHoursSinceRest;
+        double hoursSinceRestRatio = hoursSinceRest / maxHoursSinceRest;
+
+        if (hoursSinceRestRatio > 0.80 && !(neighbour instanceof Restaurant) && !(neighbour instanceof GasStation) && !(neighbour.equals(destination))) {
+            totalPenalization += 500.0 * (hoursSinceRestRatio - 0.70);
+        }
+
+        double maxHoursSinceHotel = AppSessionTelemetryPreferences.getInstance().getMaxDriveHoursBeforeHotel();
+        double hoursSinceHotel = currentState.driveHoursToday;
+        double hoursSinceHotelRatio = hoursSinceHotel / maxHoursSinceHotel;
+        if (hoursSinceHotelRatio > 0.80 && !(neighbour instanceof Hotel) && !(neighbour.equals(destination))) {
+            totalPenalization += 500.0 * (hoursSinceHotelRatio - 0.70);
+        }
+
+        return totalPenalization;
     }
 
     public static PathResult dijkstra(
@@ -179,6 +205,8 @@ public class Dijkstra {
                     fuelNeeded = edge.getFuelConsumption(vehicle);
                     edgeWeight = edge.getWeight();
                 }
+
+                edgeWeight += penalizeEdgeWeight(vehicle, updatedState, neighbour, destination);
 
                 if (!isValidEdgeTransition(updatedState, neighbour, destination, driveDurationHours, fuelNeeded)) {
                     continue;

@@ -34,8 +34,11 @@ public class Edge {
     }
 
     public double getSpeedKmh() {
-       // return CalculationsService.SpeedKmh(source, destination, this.trafficFactor, this.defaultSpeed);
         return getSpeedKmh(1);
+    }
+
+    public double getSpeedKmhWithTrafficCalculator(City city, LocalDateTime arrivalTime) {
+        return getSpeedKmh(CalculationsService.getCityCongestionFactor(city, arrivalTime));
     }
 
     public double getSpeedKmh(double cityTrafficFactor) {
@@ -43,7 +46,6 @@ public class Edge {
     }
 
     public double getDrivingTime() {
-        //return distanceKm / getSpeedKmh();
         return getDrivingTime(1);
     }
 

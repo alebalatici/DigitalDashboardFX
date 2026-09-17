@@ -92,7 +92,7 @@ public class AlgorithmsTest {
         System.out.println("------------------------------------------------------");
 
         Map<PointOfInterest, LocalDateTime> arrivalTimes = result.getArrivalTimes();
-        
+
         System.out.println("📍 START: " + start.getName() + " [" + start.getClass().getSimpleName() + "]");
         System.out.println("   Plecarea la: " + arrivalTimes.get(start).format(formatter));
         System.out.println("   |");
@@ -106,7 +106,7 @@ public class AlgorithmsTest {
             System.out.println("📍 PASUL " + step + ": " + destination.getName() + " [" + destination.getClass().getSimpleName() + "]");
             System.out.println("   Ora sosirii: " + (arrival != null ? arrival.format(formatter) : "N/A"));
             System.out.println("   Coordonate: " + destination.getX() + " " + destination.getY());
-            System.out.println("   Viteza: " + edge.getSpeedKmh(/*arrival)*/));
+            System.out.println("   Viteza: " + edge.getSpeedKmh());
             System.out.println("   |");
             step++;
         }

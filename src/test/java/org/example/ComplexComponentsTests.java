@@ -29,30 +29,24 @@ public class ComplexComponentsTests {
     @TempDir
     Path tempDirHotels;
 
-    private String tempFilePathCities;
-    private String tempFilePathGasStations;
-    private String tempFilePathRestaurants;
-    private String tempFilePathHotels;
-
-    private PointOfInterestFileRepository repoPointOfInterest;
     private PointOfInterestService srvPointOfInterest;
     private LocalDateTime startDateTime;
 
     @BeforeEach
     void setUp() {
-        tempFilePathCities = tempDirCities.resolve("test_cities.json").toString();
+        String tempFilePathCities = tempDirCities.resolve("test_cities.json").toString();
         FileUtils.copyTargetTemplate(tempFilePathCities, "complex_data/complex_cities.json");
 
-        tempFilePathGasStations = tempDirGasStations.resolve("test_gas_stations.json").toString();
+        String tempFilePathGasStations = tempDirGasStations.resolve("test_gas_stations.json").toString();
         FileUtils.copyTargetTemplate(tempFilePathGasStations, "complex_data/complex_gas_stations.json");
 
-        tempFilePathHotels = tempDirHotels.resolve("test_hotels.json").toString();
+        String tempFilePathHotels = tempDirHotels.resolve("test_hotels.json").toString();
         FileUtils.copyTargetTemplate(tempFilePathHotels, "complex_data/complex_hotels.json");
 
-        tempFilePathRestaurants = tempDirRestaurants.resolve("test_restaurants.json").toString();
+        String tempFilePathRestaurants = tempDirRestaurants.resolve("test_restaurants.json").toString();
         FileUtils.copyTargetTemplate(tempFilePathRestaurants, "complex_data/complex_restaurants.json");
 
-        repoPointOfInterest = new PointOfInterestFileRepository(tempFilePathCities);
+        PointOfInterestFileRepository repoPointOfInterest = new PointOfInterestFileRepository(tempFilePathCities);
         repoPointOfInterest.loadFromFile(tempFilePathGasStations);
         repoPointOfInterest.loadFromFile(tempFilePathHotels);
         repoPointOfInterest.loadFromFile(tempFilePathRestaurants);
@@ -66,12 +60,12 @@ public class ComplexComponentsTests {
         srvPointOfInterest.buildGraph(500);
         Graph graph = srvPointOfInterest.getGraph();
         assertNotNull(graph);
-        LocalDateTime startDateTime = LocalDateTime.of(2026, 9, 4, 8, 0);
+        startDateTime = LocalDateTime.of(2026, 9, 4, 8, 0);
         Vehicle vehilce = new Vehicle(1, "Brand1", "Model1", 2010, 100000, Vehicle.EngineType.ICE_DIESEL, 75, 75);
 
         PathResult result1 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Paris", "CITY"), srvPointOfInterest.findPointOfInterest("Budapest", "CITY"), startDateTime, vehilce);
         assertNotNull(result1);
-        //AlgorithmsTest.printPathDetails(result1, srvPointOfInterest.findPointOfInterest("Paris", "CITY"));
+      //  AlgorithmsTest.printPathDetails(result1, srvPointOfInterest.findPointOfInterest("Paris", "CITY"));
 
         PathResult result2 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Istanbul", "CITY"), srvPointOfInterest.findPointOfInterest("Oslo", "CITY"), startDateTime, vehilce);
         assertNotNull(result2);
@@ -79,7 +73,7 @@ public class ComplexComponentsTests {
 
         PathResult result3 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Istanbul", "CITY"), srvPointOfInterest.findPointOfInterest("Barcelona", "CITY"), startDateTime, vehilce);
         assertNotNull(result3);
-        AlgorithmsTest.printPathDetails(result3, srvPointOfInterest.findPointOfInterest("Istanbul", "CITY"));
+      //  AlgorithmsTest.printPathDetails(result3, srvPointOfInterest.findPointOfInterest("Istanbul", "CITY"));
 
         PathResult result4 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Barcelona", "CITY"), srvPointOfInterest.findPointOfInterest("Lisbon", "CITY"), startDateTime, vehilce);
         assertNotNull(result4);

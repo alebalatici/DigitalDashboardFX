@@ -84,7 +84,7 @@ public class ComponentsTests {
         assertNotNull(gasStation);
 
         Edge edge3 = new Edge(hotelSky, gasStation);
-        double speed = edge3.getSpeedKmh(/*startDateTime*/);
+        double speed = edge3.getSpeedKmh();
         CalculationsService.initializeDefaultSpeed();
         assertTrue(speed >= 70 / 1.25 && speed <= 120 / 0.90);
 
