@@ -37,8 +37,17 @@ public class Edge {
         return getSpeedKmh(1);
     }
 
-    public double getSpeedKmhWithTrafficCalculator(City city, LocalDateTime arrivalTime) {
-        return getSpeedKmh(CalculationsService.getCityCongestionFactor(city, arrivalTime));
+    public double getSpeedKmhArrivalTime(LocalDateTime arrivalTime) {
+        if (source instanceof City) {
+            double cityTrafficFactor = CalculationsService.getCityCongestionFactor((City) source, arrivalTime);
+            return getSpeedKmh(cityTrafficFactor);
+        }
+        if (destination instanceof City) {
+            double cityTrafficFactor = CalculationsService.getCityCongestionFactor((City) destination, arrivalTime);
+            return getSpeedKmh(cityTrafficFactor);
+        }
+
+        return getSpeedKmh();
     }
 
     public double getSpeedKmh(double cityTrafficFactor) {

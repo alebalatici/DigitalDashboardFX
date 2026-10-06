@@ -106,7 +106,7 @@ public class AlgorithmsTest {
             System.out.println("📍 PASUL " + step + ": " + destination.getName() + " [" + destination.getClass().getSimpleName() + "]");
             System.out.println("   Ora sosirii: " + (arrival != null ? arrival.format(formatter) : "N/A"));
             System.out.println("   Coordonate: " + destination.getX() + " " + destination.getY());
-            System.out.println("   Viteza: " + edge.getSpeedKmh());
+            System.out.println("   Viteza: " + edge.getSpeedKmhArrivalTime(arrival));
             System.out.println("   |");
             step++;
         }

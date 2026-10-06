@@ -25,7 +25,7 @@ public class GasStation extends RestStation {
         this(name, country, x, y, averageStopDuration, false, 0.0);
     }
 
-    public boolean hasHasElectricCharger() {
+    public boolean hasElectricCharger() {
         return hasElectricCharger;
     }
 

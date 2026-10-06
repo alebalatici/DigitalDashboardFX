@@ -61,22 +61,26 @@ public class ComplexComponentsTests {
         Graph graph = srvPointOfInterest.getGraph();
         assertNotNull(graph);
         startDateTime = LocalDateTime.of(2026, 9, 4, 8, 0);
-        Vehicle vehilce = new Vehicle(1, "Brand1", "Model1", 2010, 100000, Vehicle.EngineType.ICE_DIESEL, 75, 75);
+        Vehicle vehicle = new Vehicle(1, "Brand1", "Model1", 2010, 100000, Vehicle.EngineType.ICE_DIESEL, 75, 75);
 
-        PathResult result1 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Paris", "CITY"), srvPointOfInterest.findPointOfInterest("Budapest", "CITY"), startDateTime, vehilce);
+        PathResult result1 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Paris", "CITY"), srvPointOfInterest.findPointOfInterest("Budapest", "CITY"), startDateTime, vehicle);
         assertNotNull(result1);
       //  AlgorithmsTest.printPathDetails(result1, srvPointOfInterest.findPointOfInterest("Paris", "CITY"));
 
-        PathResult result2 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Istanbul", "CITY"), srvPointOfInterest.findPointOfInterest("Oslo", "CITY"), startDateTime, vehilce);
+        PathResult result2 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Istanbul", "CITY"), srvPointOfInterest.findPointOfInterest("Oslo", "CITY"), startDateTime, vehicle);
         assertNotNull(result2);
       //  AlgorithmsTest.printPathDetails(result2, srvPointOfInterest.findPointOfInterest("Istanbul", "CITY"));
 
-        PathResult result3 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Istanbul", "CITY"), srvPointOfInterest.findPointOfInterest("Barcelona", "CITY"), startDateTime, vehilce);
+        PathResult result3 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Istanbul", "CITY"), srvPointOfInterest.findPointOfInterest("Barcelona", "CITY"), startDateTime, vehicle);
         assertNotNull(result3);
       //  AlgorithmsTest.printPathDetails(result3, srvPointOfInterest.findPointOfInterest("Istanbul", "CITY"));
 
-        PathResult result4 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Barcelona", "CITY"), srvPointOfInterest.findPointOfInterest("Lisbon", "CITY"), startDateTime, vehilce);
+        PathResult result4 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Barcelona", "CITY"), srvPointOfInterest.findPointOfInterest("Lisbon", "CITY"), startDateTime, vehicle);
         assertNotNull(result4);
-     //   AlgorithmsTest.printPathDetails(result4, srvPointOfInterest.findPointOfInterest("Istanbul", "CITY"));
+      //   AlgorithmsTest.printPathDetails(result4, srvPointOfInterest.findPointOfInterest("Barcelona", "CITY"));
+
+        PathResult result5 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Sofia", "CITY"), srvPointOfInterest.findPointOfInterest("Lisbon", "CITY"), startDateTime, vehicle);
+        assertNotNull(result5);
+      //  AlgorithmsTest.printPathDetails(result5, srvPointOfInterest.findPointOfInterest("Sofia", "CITY"));
     }
 }

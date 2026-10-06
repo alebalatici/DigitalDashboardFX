@@ -79,8 +79,10 @@ public class AppSessionNavigation {
     public LocalDateTime getStartDateTime() {
         if (startDate != null && startTime != null) {
             startDateTime = LocalDateTime.of(startDate, startTime);
+          //  return startDateTime;
         }
         return startDateTime;
+       // return LocalDateTime.now();
     }
 
     public void setStartDate(LocalDate startDate) {

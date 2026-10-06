@@ -1,7 +1,5 @@
 package org.example.calculations;
-import org.example.core.City;
-import org.example.core.PointOfInterest;
-import org.example.core.VirtualPoint;
+import org.example.core.*;
 import org.example.session.AppSessionTelemetryPreferences;
 
 import java.time.DayOfWeek;
@@ -132,5 +130,13 @@ public class CalculationsService {
         catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
+    }
+
+    public static double getTotalMinutesForCharging(double currentFuel, GasStation gasStation, Vehicle vehicle) {
+        if (gasStation.getChargingPowerKw() == 0) {
+            throw new ServiceException("Charging power is zero");
+        }
+
+        return (vehicle.getFuelCapacity() - currentFuel) / gasStation.getChargingPowerKw() * 60;
     }
 }

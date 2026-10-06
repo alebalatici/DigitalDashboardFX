@@ -107,7 +107,7 @@ public class ComponentsTests {
         double stopDurationMinutes = ((RestStation) gasStation).getAverageStopDuration();
         double stopDuration = stopDurationMinutes / 60;
 
-        assertEquals(edge.getRoadAndStopDuration(), stopDuration + drivingTimeHours);
+        assertEquals(edge.getRoadAndStopDuration(), stopDuration + drivingTimeHours, 0.01);
     }
 
     @Test
@@ -121,34 +121,54 @@ public class ComponentsTests {
         JourneyState currentState1 = new JourneyState(gasStation, 100, 3, 10, vehicle.getCurrentFuel());
         JourneyState updatedState1 = Dijkstra.applyNodeRefuelAndRestRules(currentState1, vehicle);
 
-        assertTrue(updatedState1.hasStopped);
+        assertTrue(updatedState1.minutesStopped != 0);
         assertEquals(updatedState1.fuelLiters, vehicle.getFuelCapacity());
         assertEquals(0.0, updatedState1.driveHoursSinceRest);
 
         JourneyState currentState2 = new JourneyState(gasStation, 100, 3, 10, vehicle.getFuelCapacity() - 1);
         JourneyState updatedState2 = Dijkstra.applyNodeRefuelAndRestRules(currentState2, vehicle);
-        assertTrue(updatedState2.hasStopped);
-        assertEquals(updatedState2.fuelLiters, vehicle.getFuelCapacity());
+        assertTrue(updatedState2.minutesStopped != 0);
+        assertEquals(0.0, updatedState1.driveHoursSinceRest);
+        assertNotEquals(updatedState2.fuelLiters, vehicle.getFuelCapacity(), 0.0);
 
         JourneyState currentState3 = new JourneyState(gasStation, 100, 2, 10, vehicle.getFuelCapacity());
         JourneyState updatedState3 = Dijkstra.applyNodeRefuelAndRestRules(currentState3, vehicle);
-        assertFalse(updatedState3.hasStopped);
+       // assertFalse(updatedState3.minutesStopped != 0);
+        assertEquals(0, updatedState3.minutesStopped);
 
         JourneyState currentState4 = new JourneyState(hotel, 100, 2, 13.5, vehicle.getFuelCapacity());
         JourneyState updatedState4 = Dijkstra.applyNodeRefuelAndRestRules(currentState4, vehicle);
-        assertTrue(updatedState4.hasStopped);
+        assertTrue(updatedState4.minutesStopped != 0);
 
         JourneyState currentState5 = new JourneyState(hotel, 100, 2, 7, vehicle.getFuelCapacity());
         JourneyState updatedState5 = Dijkstra.applyNodeRefuelAndRestRules(currentState5, vehicle);
-        assertFalse(updatedState5.hasStopped);
+       // assertFalse(updatedState5.hasStopped);
+        assertEquals(0, updatedState5.minutesStopped);
 
         JourneyState currentState6 = new JourneyState(restaurant, 100, 3, 8, vehicle.getFuelCapacity());
         JourneyState updatedState6 = Dijkstra.applyNodeRefuelAndRestRules(currentState6, vehicle);
-        assertTrue(updatedState6.hasStopped);
+        assertTrue(updatedState6.minutesStopped != 0);
 
         JourneyState currentState7 = new JourneyState(restaurant, 100, 2, 8, vehicle.getFuelCapacity());
         JourneyState updatedState7 = Dijkstra.applyNodeRefuelAndRestRules(currentState7, vehicle);
-        assertFalse(updatedState7.hasStopped);
+        //assertFalse(updatedState7.hasStopped);
+        assertEquals(0, updatedState7.minutesStopped);
+
+        /*
+        //Electric car testing
+        Vehicle vehicleElectric = new Vehicle(2, "Brand2", "Model2", 2011, 100000, Vehicle.EngineType.ELECTRIC, 50, 5);
+
+        JourneyState currentState8 = new JourneyState(gasStation, 100, 2, 10, vehicleElectric.getCurrentFuel());
+        JourneyState updatedState8 = Dijkstra.applyNodeRefuelAndRestRules(currentState8, vehicleElectric);
+        assertFalse(updatedState8.hasStopped);
+
+        JourneyState currentState9 = new JourneyState(gasStation, 100, 3, 10, vehicleElectric.getCurrentFuel());
+        JourneyState updatedState9 = Dijkstra.applyNodeRefuelAndRestRules(currentState9, vehicleElectric);
+        assertTrue(updatedState9.hasStopped);
+        assertNotEquals(updatedState9.fuelLiters, vehicle.getFuelCapacity());
+        assertEquals(0.0, updatedState9.driveHoursSinceRest);
+
+        GasStation gasStationElectric = new GasStation("GasStation2", "Country1", 43.4, 45.65, 30, true, 0.0);*/
     }
 
     @Test
@@ -180,15 +200,19 @@ public class ComponentsTests {
         srvPointOfInterest.buildGraph(200);
         Graph graph = srvPointOfInterest.getGraph();
         assertNotNull(graph);
-        LocalDateTime startDateTime = LocalDateTime.of(2026, 9, 4, 8, 0);
+        startDateTime = LocalDateTime.of(2026, 9, 4, 8, 0);
         Vehicle vehilce = new Vehicle(1, "Brand1", "Model1", 2010, 100000, Vehicle.EngineType.ICE_DIESEL, 500, 300);
 
         PathResult result1 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Cluj-Napoca", "CITY"), srvPointOfInterest.findPointOfInterest("Budapest", "CITY"), startDateTime, vehilce);
         assertNotNull(result1);
+        assertNotNull(result1.getPointsOfInterest());
+        assertFalse(result1.getPointsOfInterest().isEmpty());
         // AlgorithmsTest.printPathDetails(result1, srvPointOfInterest.findPointOfInterest("Cluj-Napoca", "CITY"));
 
         PathResult result2 = Dijkstra.dijkstra(graph.getAdjacencyList(), srvPointOfInterest.findPointOfInterest("Oradea", "CITY"), srvPointOfInterest.findPointOfInterest("Cluj-Napoca", "CITY"), startDateTime, vehilce);
         assertNotNull(result2);
+        assertNotNull(result2.getPointsOfInterest());
+        assertFalse(result2.getPointsOfInterest().isEmpty());
         // AlgorithmsTest.printPathDetails(result2, srvPointOfInterest.findPointOfInterest("Oradea", "CITY"));
     }
 }

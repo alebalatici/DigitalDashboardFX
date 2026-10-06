@@ -6,10 +6,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
+import org.example.algorithms.Dijkstra;
+import org.example.algorithms.PathResult;
 import org.example.calculations.PointOfInterestService;
 import org.example.calculations.VehicleService;
 import org.example.core.City;
 import org.example.core.Vehicle;
+import org.example.gui.components.simulation_view_components.RouteMapCanvas;
 import org.example.session.AppSessionNavigation;
 import org.example.gui.utils.ColorUtils;
 import org.example.gui.utils.Initializer;
@@ -34,6 +37,9 @@ public class SimulationView extends Pane {
     private VBox logContainer;
     private ScrollPane terminalScrollPane;
     private Label statusLabel;
+
+    private Button startStopSimulationButton;
+    private Button buttonNavigation;
 
     public SimulationView(VehicleService srvVehicle, PointOfInterestService srvPointOfInterest, Runnable onHomePressed, Runnable onNavigationPressed, Runnable onSettingsPressed) {
         this.srvVehicle = srvVehicle;
@@ -60,6 +66,9 @@ public class SimulationView extends Pane {
         sourceCity = AppSessionNavigation.getInstance().getSourceCity();
         destinationCity = AppSessionNavigation.getInstance().getDestinationCity();
         startDateTime = AppSessionNavigation.getInstance().getStartDateTime();
+
+        startStopSimulationButton = new Button("START SIMULATION");
+        ColorUtils.updateCustomizeButtonColor(startStopSimulationButton, activeVehicle.getEngineType());
 
         HBox header = initializeHeader();
         GridPane simulationGrid = initializeSimulationGrid();
@@ -94,25 +103,36 @@ public class SimulationView extends Pane {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        String labelText = "";
+        StringBuilder labelText = new StringBuilder();
         String buttonText = "";
         if (sourceCity != null && destinationCity != null && startDateTime != null) {
-            labelText = "ROUTE: " + sourceCity.getName() + " -> " + destinationCity.getName();
+            labelText.append("ROUTE: ").append(sourceCity.getName()).append(" -> ").append(destinationCity.getName());
+            labelText.append("\n").append(startDateTime.getDayOfWeek()).append("\n").append(startDateTime.toLocalTime().toString()).append("\n").append(startDateTime.toLocalDate().toString());
             buttonText = "CHANGE ROUTE";
         }
         else {
-            labelText = "Please select the source city, the destination city and the start date & time";
+            if (sourceCity == null) {
+                labelText.append("The source city is missing.\n");
+            }
+
+            if (destinationCity == null) {
+                labelText.append("The destination city is missing.\n");
+            }
+
+            if (startDateTime == null) {
+                labelText.append("The start date & time are missing.\n");
+            }
             buttonText = "GO TO NAVIGATION SECTION";
         }
 
-        Label labelNavigation = new Label(labelText);
-        Button buttonNavigation = new Button(buttonText);
+        Label labelNavigation = new Label(labelText.toString());
+        buttonNavigation = new Button(buttonText);
         ColorUtils.updateCustomizeButtonColor(buttonNavigation, activeVehicle.getEngineType());
         ColorUtils.updateBadgeColor(labelNavigation, activeVehicle.getEngineType(), "badge-bracket", initializer.getIngeritedClasses("badge-bracket"));
 
         VBox navigationBox = new VBox(8);
         navigationBox.setAlignment(Pos.TOP_RIGHT);
-        navigationBox.getChildren().addAll(labelNavigation, buttonNavigation);
+        navigationBox.getChildren().addAll(labelNavigation);
 
         buttonNavigation.setOnMouseClicked(e -> {
             if (onNavigationPressed != null) {
@@ -158,21 +178,31 @@ public class SimulationView extends Pane {
         Label title = new Label("GEOSPATIAL ROUTE MAP");
         title.getStyleClass().add("card-section-title");
 
-        Pane mapCanvas = new Pane();
-        //mapCanvas.setStyle("map-canvas");
+        RouteMapCanvas mapCanvas = new RouteMapCanvas(startStopSimulationButton);
         VBox.setVgrow(mapCanvas, Priority.ALWAYS);
 
+        if (sourceCity != null && destinationCity != null && startDateTime != null && activeVehicle != null) {
+            PathResult pathResult = Dijkstra.dijkstra(
+                    srvPointOfInterest.getGraph().getAdjacencyList(),
+                    sourceCity,
+                    destinationCity,
+                    startDateTime,
+                    activeVehicle
+            );
 
-        /*
-        Polyline routeLine = new Polyline(50.0, 200.0, 150.0, 120.0, 300.0, 160.0, 450.0, 80.0);
-        routeLine.setStyle("-fx-stroke: #FF0055; -fx-stroke-width: 2px; -fx-stroke-dash-array: 8 4;");
+            if (pathResult == null || pathResult.getPath() == null || pathResult.getPath().isEmpty()) {
+                String warningMsg = "NO VALID ROUTE FOUND BETWEEN " + sourceCity.getName().toUpperCase() + " AND " + destinationCity.getName().toUpperCase();
+                mapCanvas.showWarningMessage(warningMsg, activeVehicle, initializer);
+            } else {
+                mapCanvas.setRoute(pathResult);
+            }
+        }
 
-        Circle vehicleMarker = new Circle(50, 200, 7);
-        vehicleMarker.setStyle("-fx-fill: #00F0FF; -fx-effect: dropshadow(three-pass-box, #00F0FF, 10, 0, 0, 0);");
-        mapCanvas.getChildren().addAll(routeLine, vehicleMarker);
-        */
+        else {
+            mapCanvas.showWarningMessage("PLEASE SELECT THE JOURNEY PARAMETERS", activeVehicle, initializer);
+        }
 
-        mapPanel.getChildren().addAll(title, mapCanvas);
+        mapPanel.getChildren().addAll(title, mapCanvas, buttonNavigation);
         return mapPanel;
     }
 
@@ -204,7 +234,7 @@ public class SimulationView extends Pane {
 
         statusBox.getChildren().addAll(statusLabel);
 
-        telemetryPanel.getChildren().addAll(title, gaugesBox, energyBox, statusBox);
+        telemetryPanel.getChildren().addAll(title, gaugesBox, energyBox, statusBox, startStopSimulationButton);
         return telemetryPanel;
     }
 

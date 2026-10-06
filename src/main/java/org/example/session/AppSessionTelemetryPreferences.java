@@ -12,7 +12,7 @@ public class AppSessionTelemetryPreferences {
     private RoutingCriterion routingCriterion = RoutingCriterion.MIN_DISTANCE;
 
     private double maxDriveHoursBeforeRest = 4.0;
-    private double maxDriveHoursBeforeHotel = 12.0;
+    private double maxDriveHoursBeforeHotel = 12.5;
 
     private AppSessionTelemetryPreferences() {}
 

@@ -19,32 +19,45 @@ public class Dijkstra {
         double maxDrivingHours = AppSessionTelemetryPreferences.getInstance().getMaxDriveHoursBeforeRest();
         double maxHoursBeforeHotel = AppSessionTelemetryPreferences.getInstance().getMaxDriveHoursBeforeHotel();
 
-        double differenceRest = Math.abs(restHours - maxDrivingHours);
-        double differenceHotel = Math.abs(todayHours - maxHoursBeforeHotel);
+        double differenceRest = maxDrivingHours - restHours - 1;
+        double differenceHotel = maxHoursBeforeHotel - todayHours - 1;
 
-        boolean hasStopped = false;
+        double minutesStopped = 0.0;
 
         if (current instanceof GasStation) {
-            double minFuelThreshold = vehicle.getFuelCapacity() * 0.20;
-            if (currentState.fuelLiters <= minFuelThreshold || differenceRest <= 1) {
-                fuel = vehicle.getFuelCapacity();
+            double minFuelThreshold = vehicle.getFuelCapacity() * 0.30;
+            boolean isElectric = vehicle.getEngineType() == Vehicle.EngineType.ELECTRIC;
+            boolean hasElectricCharger = ((GasStation) current).hasElectricCharger();
+
+            if (differenceRest <= 0) {
                 restHours = 0.0;
-                hasStopped = true;
+                minutesStopped = ((GasStation) current).getAverageStopDuration();
+            }
+
+            if (currentState.fuelLiters <= minFuelThreshold) {
+                if (!isElectric || hasElectricCharger) {
+                    minutesStopped = ((GasStation) current).getAverageStopDuration();
+
+                    if (isElectric) {
+                        minutesStopped += CalculationsService.getTotalMinutesForCharging(fuel, (GasStation) current, vehicle);
+                    }
+                    fuel = vehicle.getFuelCapacity();
+                }
             }
         }
 
-        if (current instanceof Restaurant && differenceRest <= 1) {
+        else if (current instanceof Restaurant && differenceRest <= 0) {
             restHours = 0.0;
-            hasStopped = true;
+            minutesStopped = ((Restaurant) current).getAverageStopDuration();
         }
 
-        if (current instanceof Hotel && differenceHotel <= 1) {
+        else if (current instanceof Hotel && differenceHotel <= 0) {
             restHours = 0.0;
             todayHours = 0.0;
-            hasStopped = true;
+            minutesStopped = ((Hotel) current).getAverageStopDuration();
         }
 
-        return new JourneyState(current, currentState.cost, restHours, todayHours, fuel, hasStopped);
+        return new JourneyState(current, currentState.cost, restHours, todayHours, fuel, minutesStopped);
     }
 
     public static boolean isValidEdgeTransition(JourneyState currentState, PointOfInterest neighbour, PointOfInterest destination, double driveDurationHours, double fuelNeeded) {
@@ -112,8 +125,15 @@ public class Dijkstra {
     public static double penalizeEdgeWeight(Vehicle vehicle, JourneyState currentState, PointOfInterest neighbour, PointOfInterest destination) {
         double fuelRatio = currentState.fuelLiters / vehicle.getFuelCapacity();
         double totalPenalization = 0.0;
-        if (fuelRatio < 0.30 && !(neighbour instanceof GasStation) && !(neighbour.equals(destination))) {
-            totalPenalization += 5000.0 * (0.30 - fuelRatio);
+
+        if (fuelRatio < 0.30 && !neighbour.equals(destination)) {
+            if (!(neighbour instanceof GasStation)) {
+                totalPenalization += 5000.0 * (0.30 - fuelRatio);
+            }
+
+            else if (vehicle.getEngineType() == Vehicle.EngineType.ELECTRIC && !((GasStation) neighbour).hasElectricCharger()) {
+                totalPenalization += 5000.0 * (0.30 - fuelRatio);
+            }
         }
 
         double maxHoursSinceRest = AppSessionTelemetryPreferences.getInstance().getMaxDriveHoursBeforeRest();
@@ -220,10 +240,7 @@ public class Dijkstra {
                     long durationMinutes = (long) (driveDurationHours * 60);
                     LocalDateTime nextArrival = currentArrival.plusMinutes(durationMinutes);
 
-                    if (updatedState.node instanceof RestStation && updatedState.hasStopped) {
-                        assert current instanceof RestStation;
-                        nextArrival = nextArrival.plusMinutes(((RestStation) current).getAverageStopDuration());
-                    }
+                    nextArrival = nextArrival.plusMinutes((long) updatedState.minutesStopped);
 
                     arrivalTimes.put(neighbour, nextArrival);
                     priorityQueue.add(new JourneyState(neighbour, newCost, updatedState.driveHoursSinceRest + driveDurationHours, updatedState.driveHoursToday + driveDurationHours, updatedState.fuelLiters - fuelNeeded));

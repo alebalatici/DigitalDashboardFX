@@ -22,7 +22,7 @@ public class App
         repoPointOfInterest.loadFromFile("data/restaurants.json");
         PointOfInterestService srvPointOfInterest = new PointOfInterestService(repoPointOfInterest);
 
-        srvPointOfInterest.buildGraph(200);
+        srvPointOfInterest.buildGraph(500);
 
         AppGUI.setServices(srvVehicle, srvPointOfInterest);
         Application.launch(AppGUI.class, args);

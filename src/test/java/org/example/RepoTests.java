@@ -119,7 +119,7 @@ public class RepoTests {
         assertEquals(46.8672, gasStation.getX());
         assertEquals(23.0245, gasStation.getY());
         assertEquals(10, gasStation.getAverageStopDuration());
-        assertFalse(gasStation.hasHasElectricCharger());
+        assertFalse(gasStation.hasElectricCharger());
         assertEquals(0.0, gasStation.getChargingPowerKw());
     }
 

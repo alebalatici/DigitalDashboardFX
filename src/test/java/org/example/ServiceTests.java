@@ -12,10 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
 
 public class ServiceTests {
     @TempDir
@@ -198,5 +195,12 @@ public class ServiceTests {
 
             assertFalse(isConnectedToC);
         }
+    }
+
+    @Test
+    void testGetTotalMinutesForCharging() {
+        Vehicle vehicle = new Vehicle(1, "Brand1", "Model1", 2010, 100000, Vehicle.EngineType.ELECTRIC, 100, 20);
+        GasStation gasStation = new GasStation("GasStation1", "Country2", 43.4, 45.65, 30, false, 0.0);
+        assertThrows(ServiceException.class, ()-> CalculationsService.getTotalMinutesForCharging(vehicle.getCurrentFuel(), gasStation, vehicle));
     }
 }

@@ -8,19 +8,20 @@ public class JourneyState implements Comparable<JourneyState> {
     public final double driveHoursSinceRest;
     public final double driveHoursToday;
     public final double fuelLiters;
-    public final boolean hasStopped;
+    /*public final boolean hasStopped;*/
+    public final double minutesStopped;
 
-    JourneyState(PointOfInterest node, double cost, double driveHoursSinceRest, double driveHoursToday, double fuelLiters, boolean hasStopped) {
+    JourneyState(PointOfInterest node, double cost, double driveHoursSinceRest, double driveHoursToday, double fuelLiters, double minutesStopped) {
         this.node = node;
         this.cost = cost;
         this.driveHoursSinceRest = driveHoursSinceRest;
         this.driveHoursToday = driveHoursToday;
         this.fuelLiters = fuelLiters;
-        this.hasStopped = hasStopped;
+        this.minutesStopped = minutesStopped;
     }
 
     public JourneyState(PointOfInterest node, double cost, double driveHoursSinceRest, double driveHoursToday, double fuelLiters) {
-        this(node, cost, driveHoursSinceRest, driveHoursToday, fuelLiters, false);
+        this(node, cost, driveHoursSinceRest, driveHoursToday, fuelLiters, 0.0);
     }
 
     @Override

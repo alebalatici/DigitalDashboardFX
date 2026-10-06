@@ -4,6 +4,7 @@ import org.example.calculations.Edge;
 import org.example.core.PointOfInterest;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,5 +45,16 @@ public class PathResult {
 
     public Map<PointOfInterest, LocalDateTime> getArrivalTimes() {
         return arrivalTimes;
+    }
+
+    public List<PointOfInterest> getPointsOfInterest() {
+        List<PointOfInterest> points = new ArrayList<>();
+        if (!path.isEmpty()) {
+            points.add(path.get(0).getSource());
+            for (Edge edge : path) {
+                points.add(edge.getDestination());
+            }
+        }
+        return points;
     }
 }

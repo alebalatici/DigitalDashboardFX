@@ -124,7 +124,7 @@ public class ObjectsTests {
         assertEquals(50, gasStationElectricCharger.getX());
         assertEquals(40, gasStationElectricCharger.getY());
         assertEquals(20, gasStationElectricCharger.getAverageStopDuration());
-        assertTrue(gasStationElectricCharger.hasHasElectricCharger());
+        assertTrue(gasStationElectricCharger.hasElectricCharger());
         assertEquals(50.0, gasStationElectricCharger.getChargingPowerKw());
 
         GasStation GasStationNoElectricCharger = new GasStation("GasStation", "Country", 50, 40, 20);
@@ -132,7 +132,7 @@ public class ObjectsTests {
         assertEquals(50, GasStationNoElectricCharger.getX());
         assertEquals(40, GasStationNoElectricCharger.getY());
         assertEquals(20, GasStationNoElectricCharger.getAverageStopDuration());
-        assertFalse(GasStationNoElectricCharger.hasHasElectricCharger());
+        assertFalse(GasStationNoElectricCharger.hasElectricCharger());
         assertEquals(0.0, GasStationNoElectricCharger.getChargingPowerKw());
     }
 
