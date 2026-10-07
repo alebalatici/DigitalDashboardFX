@@ -30,7 +30,6 @@ public class CalculationsService {
      * 1.25 -> heavy open road trafic
      */
     public static double generateTrafficFactor() {
-        //AppSessionTelemetryPreferences.getInstance().setTrafficFactor(trafficFactor);
         return 0.90 + (1.25 - 0.90) * random.nextDouble();
     }
 

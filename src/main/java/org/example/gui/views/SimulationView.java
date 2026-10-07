@@ -195,6 +195,7 @@ public class SimulationView extends Pane {
                 mapCanvas.showWarningMessage(warningMsg, activeVehicle, initializer);
             } else {
                 mapCanvas.setRoute(pathResult);
+                mapPanel.getChildren().add(startStopSimulationButton);
             }
         }
 
@@ -234,7 +235,7 @@ public class SimulationView extends Pane {
 
         statusBox.getChildren().addAll(statusLabel);
 
-        telemetryPanel.getChildren().addAll(title, gaugesBox, energyBox, statusBox, startStopSimulationButton);
+        telemetryPanel.getChildren().addAll(title, gaugesBox, energyBox, statusBox);
         return telemetryPanel;
     }
 

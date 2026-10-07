@@ -461,3 +461,42 @@
     -fx-border-color: #FF0055;
     -fx-border-radius: 6px;
 }
+
+
+
+/* --- MAP NODE PINS (ROZ NEON) --- */
+.map-node-pin-city {
+    -fx-fill: #FF0055;
+    -fx-stroke: #FFFFFF;
+    -fx-stroke-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 85, 0.8), 10, 0, 0, 0);
+}
+
+.map-node-pin-poi {
+    -fx-fill: #E0E0E0;
+    -fx-stroke: rgba(255, 0, 85, 0.4);
+    -fx-stroke-width: 0.5px;
+}
+
+/* --- MAP NODE LABELS --- */
+.map-node-label-city {
+    -fx-fill: #FFFFFF;
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.9), 4, 0, 0, 0);
+}
+
+.map-node-label-poi {
+    -fx-fill: #FFB8CF; /* Roz foarte pal pentru citibilitate pe fundal întunecat */
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 10px;
+}
+
+/* --- VEHICLE MARKER (MAȘINA ANIMATĂ) --- */
+.map-vehicle-marker {
+    -fx-fill: #FF0055;
+    -fx-stroke: #FFFFFF;
+    -fx-stroke-width: 1.5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 85, 0.9), 14, 0, 0, 0);
+}

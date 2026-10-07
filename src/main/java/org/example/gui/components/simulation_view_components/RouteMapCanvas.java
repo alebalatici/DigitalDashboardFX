@@ -15,6 +15,7 @@ import org.example.gui.utils.ColorUtils;
 import org.example.gui.utils.Initializer;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,8 +23,7 @@ public class RouteMapCanvas extends Pane {
     private SequentialTransition fullSimulationSequence;
     private PathResult currentPathResult;
 
-    private Button actionButton;
-    private Label simulationTimeLabel;
+    private final Button actionButton;
     private boolean isRunning = false;
 
     private static final double SIMULATION_SPEED_FACTOR = 30.0;
@@ -133,5 +133,40 @@ public class RouteMapCanvas extends Pane {
         }
 
         BoundingBox box = BoundingBox.from(points);
+
+        List<MapPoint> mappedPoints = new ArrayList<>();
+        for (PointOfInterest poi : points) {
+            double x = padding + box.getNormalizedX(poi.getY()) * usableWidth;
+            double y = (height - padding) - box.getNormalizedY(poi.getX()) * usableHeight;
+
+            mappedPoints.add(new MapPoint(poi, x, y));
+        }
+
+        RouteAnimationManager routeAnimationManager = new RouteAnimationManager(this, edges, arrivalTimes, mappedPoints);
+        routeAnimationManager.drawSegments();
+        routeAnimationManager.drawPinsAndTags();
+
+        fullSimulationSequence = new SequentialTransition();
+
+        fullSimulationSequence.setOnFinished(event -> {
+            this.isRunning = false;
+            if (actionButton != null) {
+                Platform.runLater(() -> actionButton.setText("START SIMULATION"));
+            }
+        });
+
+        routeAnimationManager.setAnimation(fullSimulationSequence, SIMULATION_SPEED_FACTOR);
+        setControls();
+    }
+
+    private void setControls() {
+        actionButton.setOnAction(event -> {
+            if (!isRunning) {
+                startSimulation();
+            }
+            else {
+                pauseSimulation();
+            }
+        });
     }
 }

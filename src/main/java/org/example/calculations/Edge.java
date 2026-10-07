@@ -50,6 +50,21 @@ public class Edge {
         return getSpeedKmh();
     }
 
+    public double getTrafficFactorArrivalTime(LocalDateTime arrivalTime) {
+        if (source instanceof City) {
+            double cityTrafficFactor = CalculationsService.getCityCongestionFactor((City) source, arrivalTime);
+            return trafficFactor * cityTrafficFactor;
+        }
+
+        if (destination instanceof City) {
+            double cityTrafficFactor = CalculationsService.getCityCongestionFactor((City) destination, arrivalTime);
+            return trafficFactor * cityTrafficFactor;
+        }
+
+        return trafficFactor;
+    }
+
+
     public double getSpeedKmh(double cityTrafficFactor) {
         return CalculationsService.SpeedKmh(source, destination, this.trafficFactor, this.defaultSpeed) / cityTrafficFactor;
     }
@@ -106,10 +121,8 @@ public class Edge {
     }
 
     public double getFuelConsumption(Vehicle vehicle) {
-       /* double trafficFactor = this.trafficFactor;
-        double baseConsumption = (this.distanceKm / 100) * vehicle.getBaseConsumption();
-        return baseConsumption * trafficFactor;*/
-
         return getFuelConsumption(vehicle, 1);
     }
+
+
 }
