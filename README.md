@@ -1,6 +1,16 @@
 # DigitalDashboardFX
-### -------- work in progress -----------------------------------------------------------
+## Geospatial Route Simulation & Telemetry System
 
+A modern, modular **JavaFX Desktop Application** designed to simulate optimal travel routes between real-world cities based on vehicle telemetry, dynamic speed factors, refueling/charging stops, and live traffic conditions.
+
+## Tech Stack & Architecture
+* **Language**: Java 17
+* **GUI Framework**: JavaFX (CSS Styling)
+* **Build Tool**: Apache Maven
+* **Testing**: JUnit 5
+* **Data Storage**: JSON File-based Repositories
+
+### -------- work in progress -----------------------------------------------------------
 ## Project Structure
 ```
 .
