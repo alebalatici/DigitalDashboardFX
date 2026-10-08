@@ -56,7 +56,18 @@ public class ColorUtils {
 
             case ICE_GASOLINE -> customizeButton.getStyleClass().add("customize-button-gasoline");
 
-            case  ICE_DIESEL -> customizeButton.getStyleClass().add("customize-button-diesel");
+            case ICE_DIESEL -> customizeButton.getStyleClass().add("customize-button-diesel");
+        }
+    }
+
+    public static void updateSimulationButtonColor(Button simulationButton, Vehicle.EngineType engineType) {
+        nodeSetup(simulationButton, "simulation-main-button", List.of("simulation-main-button-electric", "simulation-main-button-gasoline", "simulation-main-button-diesel"));
+        switch (engineType) {
+            case ELECTRIC -> simulationButton.getStyleClass().add("simulation-main-button-electric");
+
+            case ICE_GASOLINE -> simulationButton.getStyleClass().add("simulation-main-button-gasoline");
+
+            case ICE_DIESEL -> simulationButton.getStyleClass().add("simulation-main-button-diesel");
         }
     }
 

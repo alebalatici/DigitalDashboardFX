@@ -462,9 +462,6 @@
     -fx-border-radius: 6px;
 }
 
-
-
-/* --- MAP NODE PINS (ROZ NEON) --- */
 .map-node-pin-city {
     -fx-fill: #FF0055;
     -fx-stroke: #FFFFFF;
@@ -478,7 +475,6 @@
     -fx-stroke-width: 0.5px;
 }
 
-/* --- MAP NODE LABELS --- */
 .map-node-label-city {
     -fx-fill: #FFFFFF;
     -fx-font-family: 'Segoe UI', sans-serif;
@@ -488,15 +484,101 @@
 }
 
 .map-node-label-poi {
-    -fx-fill: #FFB8CF; /* Roz foarte pal pentru citibilitate pe fundal întunecat */
+    -fx-fill: #FFB8CF;
     -fx-font-family: 'Segoe UI', sans-serif;
     -fx-font-size: 10px;
 }
 
-/* --- VEHICLE MARKER (MAȘINA ANIMATĂ) --- */
 .map-vehicle-marker {
     -fx-fill: #FF0055;
     -fx-stroke: #FFFFFF;
     -fx-stroke-width: 1.5px;
     -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 85, 0.9), 14, 0, 0, 0);
+}
+
+.simulation-main-button {
+    -fx-background-color: rgba(18, 19, 28, 0.85);
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-size: 15px;
+    -fx-font-weight: 900; /* Extra bold */
+    -fx-padding: 14px 35px;
+    -fx-cursor: hand;
+    -fx-letter-spacing: 1px;
+}
+
+.simulation-main-button:hover {
+    -fx-text-fill: #FFFFFF;
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.simulation-main-button:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+.simulation-main-button-electric {
+    -fx-border-color: #00F0FF;
+    -fx-text-fill: #00F0FF;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 240, 255, 0.5), 12, 0, 0, 0);
+}
+
+.simulation-main-button-electric:hover {
+    -fx-background-color: #00F0FF;
+    -fx-text-fill: #0A0B10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 240, 255, 0.9), 20, 0, 0, 0);
+}
+
+.simulation-main-button-gasoline {
+    -fx-border-color: #00FF66;
+    -fx-text-fill: #00FF66;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 255, 102, 0.5), 12, 0, 0, 0);
+}
+
+.simulation-main-button-gasoline:hover {
+    -fx-background-color: #00FF66;
+    -fx-text-fill: #0A0B10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 255, 102, 0.9), 20, 0, 0, 0);
+}
+
+
+/* Varianta DIESEL (Chihlimbar / Portocaliu Neon) */
+.simulation-main-button-diesel {
+    -fx-border-color: #FF9900;
+    -fx-text-fill: #FF9900;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 153, 0, 0.5), 12, 0, 0, 0);
+}
+
+.simulation-main-button-diesel:hover {
+    -fx-background-color: #FF9900;
+    -fx-text-fill: #0A0B10;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 153, 0, 0.9), 20, 0, 0, 0);
+}
+
+.simulation-main-button-stop {
+    -fx-border-color: #FF0055;
+    -fx-text-fill: #FF0055;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 85, 0.6), 15, 0, 0, 0);
+}
+
+.simulation-main-button-stop:hover {
+    -fx-background-color: #FF0055;
+    -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 85, 0.95), 22, 0, 0, 0);
+}
+
+.terminal-log-line {
+    -fx-font-family: 'Consolas', 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 3px 8px;
+    -fx-background-color: rgba(255, 255, 255, 0.02);
+    -fx-background-radius: 4px;
+}
+
+.terminal-log-glow {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 255, 102, 0.4), 6, 0.2, 0, 0);
 }

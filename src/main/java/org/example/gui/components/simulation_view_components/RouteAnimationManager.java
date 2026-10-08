@@ -11,26 +11,32 @@ import org.example.calculations.Edge;
 import org.example.core.City;
 import org.example.core.PointOfInterest;
 import org.example.core.VirtualPoint;
+import org.example.gui.views.SimulationView;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
-public class RouteAnimationManager {
+public class RouteAnimationManager
+{
     private final List<Edge> edges;
     private final Map<PointOfInterest, LocalDateTime> arrivalTimes;
     private final List<MapPoint> mappedPoints;
     private final Pane canvas;
+    private final TerminalLogService terminalLogService;
 
-    private final Map<MapPoint, Text> pointLabels = new HashMap<>();
+    private final Map<PointOfInterest, Text> pointLabels = new HashMap<>();
+    private Circle vehicleMarker;
 
-    public RouteAnimationManager(Pane canvas, List<Edge> edges, Map<PointOfInterest, LocalDateTime> arrivalTimes, List<MapPoint> mappedPoints) {
+    public RouteAnimationManager(Pane canvas, List<Edge> edges, Map<PointOfInterest, LocalDateTime> arrivalTimes, List<MapPoint> mappedPoints, TerminalLogService terminalLogService) {
         this.edges = edges;
         this.arrivalTimes = arrivalTimes;
         this.mappedPoints = mappedPoints;
         this.canvas = canvas;
+        this.terminalLogService = terminalLogService;
     }
 
     public void drawSegments() {
@@ -65,12 +71,13 @@ public class RouteAnimationManager {
     }
 
     public void drawPinsAndTags() {
+        pointLabels.clear();
         for (MapPoint mapPoint : mappedPoints) {
-            boolean isCity = mapPoint.getPointOfInterest() instanceof City;
-            boolean isVirtualPoint = mapPoint.getPointOfInterest() instanceof VirtualPoint;
+            PointOfInterest poi = mapPoint.getPointOfInterest();
+            boolean isCity = poi instanceof City;
+            boolean isVirtualPoint = poi instanceof VirtualPoint;
 
             Circle nodePin = new Circle(isCity ? 5.5 : 3.5);
-
             nodePin.setCenterX(mapPoint.getX());
             nodePin.setCenterY(mapPoint.getY());
 
@@ -80,26 +87,33 @@ public class RouteAnimationManager {
             canvas.getChildren().add(nodePin);
 
             if (!isVirtualPoint) {
-                Text labelText = new Text(mapPoint.getPointOfInterest().getName());
+                Text labelText = new Text(poi.getName());
                 labelText.setX(mapPoint.getX() + 8);
                 labelText.setY(mapPoint.getY() - 8);
 
                 if (isCity) {
                     labelText.getStyleClass().add("map-node-label-city");
                     labelText.setVisible(true);
-                }
-                else {
+                } else {
                     labelText.getStyleClass().add("map-node-label-poi");
                     labelText.setVisible(false);
                 }
                 canvas.getChildren().add(labelText);
-                pointLabels.put(mapPoint, labelText);
+                pointLabels.put(poi, labelText);
             }
         }
     }
 
-    public void setAnimation(SequentialTransition fullSimulationSequence, double SIMULATION_SPEED_FACTOR) {
-        Circle vehicleMarker = new Circle(7);
+    public void resetMarkerPosition() {
+        if (vehicleMarker != null && !mappedPoints.isEmpty()) {
+            MapPoint startPoint = mappedPoints.get(0);
+            vehicleMarker.setTranslateX(startPoint.getX());
+            vehicleMarker.setTranslateY(startPoint.getY());
+        }
+    }
+
+    private void setupMarker() {
+        vehicleMarker = new Circle(7);
         vehicleMarker.getStyleClass().add("map-vehicle-marker");
 
         MapPoint startPoint = mappedPoints.get(0);
@@ -107,11 +121,35 @@ public class RouteAnimationManager {
         vehicleMarker.setTranslateY(startPoint.getY());
 
         canvas.getChildren().add(vehicleMarker);
+    }
 
+    private void logNewEdge(PauseTransition pauseLogAnim, LocalDateTime startTime, MapPoint sourceMapPoint, MapPoint destinationMapPoint) {
+        if (pauseLogAnim != null) {
+            pauseLogAnim.setOnFinished(event -> {
+                resetPoiLabelsVisibility();
+
+                Text sourceLabel = pointLabels.get(sourceMapPoint.getPointOfInterest());
+                if (sourceLabel != null) {
+                    sourceLabel.setVisible(true);
+                }
+
+                if (terminalLogService != null) {
+                    String msg = sourceMapPoint.getPointOfInterest().getName() + " " + destinationMapPoint.getPointOfInterest().getName() + " -> " + destinationMapPoint.getPointOfInterest().getName();
+                    terminalLogService.logSimulatedEvent(startTime, msg, TerminalLogService.COLOR_MUTED);
+                }
+            });
+        }
+    }
+
+    public void setAnimation(SequentialTransition fullSimulationSequence, double SIMULATION_SPEED_FACTOR) {
+        setupMarker();
         fullSimulationSequence.statusProperty().addListener((observable, oldStatus, newStatus) -> {
-           if (newStatus == Animation.Status.STOPPED) {
-               resetPoiLabelsVisibility();
-           }
+            if (newStatus == Animation.Status.STOPPED) {
+                resetPoiLabelsVisibility();
+                if (terminalLogService != null) {
+                    terminalLogService.log("SIMULATION RESET TO START POINT.", TerminalLogService.COLOR_DEFAULT);
+                }
+            }
         });
 
         for (int i = 0; i < edges.size(); i++) {
@@ -134,6 +172,10 @@ public class RouteAnimationManager {
                 durationMinutes = 1;
             }
 
+            PauseTransition pauseLogAnim = new PauseTransition(javafx.util.Duration.millis(1));
+            logNewEdge(pauseLogAnim, startTime, sourceMapPoint, destinationMapPoint);
+            fullSimulationSequence.getChildren().add(pauseLogAnim);
+
             Path segPath = new Path();
             segPath.getElements().add(new MoveTo(sourceMapPoint.getX(), sourceMapPoint.getY()));
             segPath.getElements().add(new LineTo(destinationMapPoint.getX(), destinationMapPoint.getY()));
@@ -143,41 +185,23 @@ public class RouteAnimationManager {
             segmentAnim.setPath(segPath);
             segmentAnim.setNode(vehicleMarker);
 
-            segmentAnim.statusProperty().addListener((observable, oldStatus, newStatus) -> {
-                if (newStatus == Animation.Status.RUNNING) {
-                    Text sourceLabel = pointLabels.get(sourceMapPoint);
-                    if (sourceLabel != null) {
-                        sourceLabel.setVisible(true);
-                    }
-
-                    Text destinationLabel = pointLabels.get(destinationMapPoint);
-                    if (destinationLabel != null) {
-                        destinationLabel.setVisible(true);
-                    }
-                }
-            });
-
             fullSimulationSequence.getChildren().add(segmentAnim);
 
-            if (i < edges.size() - 1) {
-                Edge nextEdge = edges.get(i + 1);
-                LocalDateTime nextDepartureTime = arrivalTimes.get(nextEdge.getSource());
+            fullSimulationSequence.setOnFinished(event -> {
+                if (terminalLogService != null && !mappedPoints.isEmpty()) {
+                    MapPoint lastPoint = mappedPoints.get(mappedPoints.size() - 1);
+                    LocalDateTime finalArrivalTime = arrivalTimes.get(lastPoint.getPointOfInterest());
 
-                if (endTime != null && nextDepartureTime != null && nextDepartureTime.isAfter(endTime)) {
-                    long stopMinutes = Duration.between(endTime, nextDepartureTime).toMinutes();
-
-                    if (stopMinutes > 0) {
-                        PauseTransition stopAnim = new PauseTransition(javafx.util.Duration.millis(stopMinutes * SIMULATION_SPEED_FACTOR));
-                        fullSimulationSequence.getChildren().add(stopAnim);
-                    }
+                    terminalLogService.logSimulatedEvent(
+                            finalArrivalTime, "JOURNEY COMPLETED AT " + lastPoint.getPointOfInterest().getName().toUpperCase(), TerminalLogService.COLOR_SUCCESS);
                 }
-            }
+            });
         }
     }
 
     private void resetPoiLabelsVisibility() {
-        for (Map.Entry<MapPoint, Text> entry : pointLabels.entrySet()) {
-            boolean isCity = entry.getKey().getPointOfInterest() instanceof City;
+        for (Map.Entry<PointOfInterest, Text> entry : pointLabels.entrySet()) {
+            boolean isCity = entry.getKey() instanceof City;
             if (!isCity) {
                 entry.getValue().setVisible(false);
             }

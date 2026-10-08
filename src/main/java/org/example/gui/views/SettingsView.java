@@ -43,12 +43,6 @@ public class SettingsView extends BorderPane {
             HBox header = initializeHeader();
             VBox activeVehicleCard = initializeActiveVehicleCard();
             VBox vehicleCustomizeForm = initializeVehicleForm();
-      //      VBox telemetryForm = initializeTelemetryForm();
-
-            //old
-         //   dynamicContent.getChildren().addAll(header, activeVehicleCard, vehicleCustomizeForm, telemetryForm);
-
-            //new
             dynamicContent.getChildren().addAll(header, activeVehicleCard, vehicleCustomizeForm);
         }
     }
@@ -92,15 +86,6 @@ public class SettingsView extends BorderPane {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        /*
-        Button customizeButton = new Button("CUSTOMIZE PARAMETERS");
-        ColorUtils.updateCustomizeButtonColor(customizeButton, activeVehicle.getEngineType());
-         */
-
-        //old
-        //formHeader.getChildren().addAll(formTitle, spacer, customizeButton);
-
-        //new
         formHeader.getChildren().addAll(formTitle, spacer);
 
 
@@ -109,12 +94,6 @@ public class SettingsView extends BorderPane {
             AppSessionNavigation.getInstance().setActiveVehicle(selectedVehicle);
             refreshUI();
         });
-
-        //old
-      //  VBox customizePanel = customizablePane.initializeCustomizablePane(customizeButton, activeVehicle);
-
-
-        //new
         VBox customizePanel = customizablePane.initializeCustomizablePane(activeVehicle);
 
 
@@ -144,7 +123,6 @@ public class SettingsView extends BorderPane {
         header.setSpacing(15);
 
         Button homeButton = new Button("HOME");
-     //   homeButton.getStyleClass().add("home-button");
         ColorUtils.updateCustomizeButtonColor(homeButton, activeVehicle.getEngineType());
 
         homeButton.setOnAction(e -> {
