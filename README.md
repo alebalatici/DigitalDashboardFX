@@ -49,9 +49,13 @@ mvn javafx:run
 ├── src/
 │   ├── main/
 │   │   ├── java/org/example/
-│   │   │   ├── calculations/   # Physics formulas / Graph Algorithms needed for Journey parameter calculation
+|   |   |   ├── algorithms/     # Dijkstra, journeyState, PathResult
+│   │   │   ├── calculations/   # Graph, Edge, Physics
 │   │   │   ├── core/           # Domain Entities and Validators
 │   │   │   ├── gui/            # Components and Views - JavaFX
+|   |   |   |   ├── components/ # Settings & Simulation View Components
+|   |   |   |   ├── utils/      # GUI Utils
+|   |   |   |   └── views/      # Primary Views
 │   │   │   ├── repo/           # Repositories (In-Memory / File Storage)
 │   │   │   ├── session/        # Saves all the parameters for the current section
 │   │   │   └── utils/          # General Classes for files and string conversion management
