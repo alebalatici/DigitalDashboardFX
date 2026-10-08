@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.example.algorithms.PathResult;
 import org.example.calculations.Edge;
@@ -107,6 +108,10 @@ public class RouteMapCanvas extends Pane {
     }
 
     public void showWarningMessage(String message, Vehicle activeVehicle, Initializer initializer) {
+        showWarningMessage(message, null, activeVehicle, initializer);
+    }
+
+    public void showWarningMessage(String message, String tipMessage, Vehicle activeVehicle, Initializer initializer) {
         this.warningMessageText = message;
         Platform.runLater(() -> {
             this.getChildren().clear();
@@ -117,7 +122,18 @@ public class RouteMapCanvas extends Pane {
             Label infoLabel = new Label(message);
             ColorUtils.updateBadgeColor(infoLabel, activeVehicle.getEngineType(), "customizable-label", initializer.getIngeritedClasses("vehicle-name-label"));
 
-            StackPane warningContainer = new StackPane(infoLabel);
+            VBox messageBox = new VBox(8);
+            messageBox.setAlignment(Pos.BOTTOM_LEFT);
+            messageBox.getChildren().add(infoLabel);
+
+            if (tipMessage != null && !tipMessage.trim().isEmpty()) {
+                Label tipLabel = new Label(tipMessage);
+                tipLabel.setWrapText(true);
+                tipLabel.getStyleClass().add("tip-label");
+                messageBox.getChildren().add(tipLabel);
+            }
+
+            StackPane warningContainer = new StackPane(messageBox);
             warningContainer.setAlignment(Pos.BOTTOM_LEFT);
 
             warningContainer.prefWidthProperty().bind(widthProperty());

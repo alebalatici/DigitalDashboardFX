@@ -68,7 +68,8 @@ public class ServiceTests {
     @Test
     void testAddCity() {
         PointOfInterestFileRepository repo = new PointOfInterestFileRepository(tempFilePathCities);
-        PointOfInterestService srv = new PointOfInterestService(repo);
+        PointOfInterestValidator val = new PointOfInterestValidator();
+        PointOfInterestService srv = new PointOfInterestService(repo, val);
         assertEquals(10, srv.getAllPointsOfInterest("CITY").size());
         srv.addCity("Name", "Country", 50.0, 51.0, 1.8, 1.4);
         assertEquals(11, srv.getAllPointsOfInterest("CITY").size());
@@ -79,7 +80,8 @@ public class ServiceTests {
     @Test
     void testAddGasStation() {
         PointOfInterestFileRepository repo = new PointOfInterestFileRepository(tempFilePathGasStations);
-        PointOfInterestService srv = new PointOfInterestService(repo);
+        PointOfInterestValidator val = new PointOfInterestValidator();
+        PointOfInterestService srv = new PointOfInterestService(repo, val);
         assertEquals(10, srv.getAllPointsOfInterest("GAS_STATION").size());
         srv.addGasStation("Name", "Country", 50.0, 51.0, 20, false, 0.0);
         assertEquals(11, repo.getAllPointsOfInterest("GAS_STATION").size());
@@ -90,7 +92,8 @@ public class ServiceTests {
     @Test
     void testAddHotel() {
         PointOfInterestFileRepository repo = new PointOfInterestFileRepository(tempFilePathHotels);
-        PointOfInterestService srv = new PointOfInterestService(repo);
+        PointOfInterestValidator val = new PointOfInterestValidator();
+        PointOfInterestService srv = new PointOfInterestService(repo, val);
         assertEquals(10, srv.getAllPointsOfInterest("HOTEL").size());
         srv.addHotel("Name", "Country", 50.0, 51.0, 420, 4);
         assertEquals(11, repo.getAllPointsOfInterest("HOTEL").size());
@@ -101,7 +104,8 @@ public class ServiceTests {
     @Test
     void testAddRestaurant() {
         PointOfInterestFileRepository repo = new PointOfInterestFileRepository(tempFilePathRestaurants);
-        PointOfInterestService srv = new PointOfInterestService(repo);
+        PointOfInterestValidator val = new PointOfInterestValidator();
+        PointOfInterestService srv = new PointOfInterestService(repo, val);
         assertEquals(10, srv.getAllPointsOfInterest("RESTAURANT").size());
         srv.addRestaurant("Name", "Country", 50.0, 51.0, 50, "Traditional", 4.8);
         assertEquals(11, repo.getAllPointsOfInterest("RESTAURANT").size());
@@ -111,14 +115,16 @@ public class ServiceTests {
     @Test
     void testGetOnlyCities() {
         PointOfInterestFileRepository repo = new PointOfInterestFileRepository(tempFilePathCities);
-        PointOfInterestService srv = new PointOfInterestService(repo);
+        PointOfInterestValidator val = new PointOfInterestValidator();
+        PointOfInterestService srv = new PointOfInterestService(repo, val);
         assertEquals(10, srv.getOnlyCities().size());
     }
 
     @Test
     void testSearchCity() {
         PointOfInterestFileRepository repo = new PointOfInterestFileRepository(tempFilePathCities);
-        PointOfInterestService srv = new PointOfInterestService(repo);
+        PointOfInterestValidator val = new PointOfInterestValidator();
+        PointOfInterestService srv = new PointOfInterestService(repo, val);
         assertEquals(1, srv.getAllCitiesWithString("Cluj", srv.getSortedCities(srv.getOnlyCities())).size());
         assertEquals(5, srv.getAllCitiesWithString("RO", srv.getSortedCities(srv.getOnlyCities())).size());
         assertEquals(1, srv.getAllCitiesWithString("Oradea", srv.getSortedCities(srv.getOnlyCities())).size());
@@ -158,9 +164,11 @@ public class ServiceTests {
         repoPointOfInterest.loadFromFile(tempFilePathGasStations);
         repoPointOfInterest.loadFromFile(tempFilePathHotels);
         repoPointOfInterest.loadFromFile(tempFilePathRestaurants);
-        PointOfInterestService srvPointOfInterest = new PointOfInterestService(repoPointOfInterest);
+        PointOfInterestValidator valPointOfInterest = new PointOfInterestValidator();
+        PointOfInterestService srvPointOfInterest = new PointOfInterestService(repoPointOfInterest, valPointOfInterest);
 
-        srvPointOfInterest.buildGraph(200);
+        srvPointOfInterest.setMaxConnectDistanceKm(200);
+        srvPointOfInterest.buildGraph();
         Graph graph = srvPointOfInterest.getGraph();
         assertNotNull(graph);
 

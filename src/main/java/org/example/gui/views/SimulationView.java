@@ -13,7 +13,9 @@ import org.example.calculations.PointOfInterestService;
 import org.example.calculations.VehicleService;
 import org.example.core.City;
 import org.example.core.Vehicle;
+import org.example.gui.components.simulation_view_components.ControlsPanel;
 import org.example.gui.components.simulation_view_components.RouteMapCanvas;
+import org.example.gui.components.simulation_view_components.TelemetryPanel;
 import org.example.gui.components.simulation_view_components.TerminalLogService;
 import org.example.session.AppSessionNavigation;
 import org.example.gui.utils.ColorUtils;
@@ -44,7 +46,6 @@ public class SimulationView extends Pane {
 
     private VBox logContainer;
     private ScrollPane terminalScrollPane;
-    private Label statusLabel;
 
     private Button startStopSimulationButton;
     private Button restartSimulationButton;
@@ -191,12 +192,14 @@ public class SimulationView extends Pane {
 
         VBox terminalPanel = initializeTerminalPanel();
         VBox mapPanel = initializeMapPanel();
-        VBox telemetryPanel = initializeTelemetryPanel();
+
+        TelemetryPanel telemetryPanel = new TelemetryPanel(activeVehicle, initializer);
+        VBox telemetryPanelBox = telemetryPanel.initializeTelemetryPanel();
         VBox controlsPanel = initializeControlsPanel();
 
         simulationGrid.add(mapPanel, 0, 0);
         simulationGrid.add(terminalPanel, 0, 1);
-        simulationGrid.add(telemetryPanel, 1, 0);
+        simulationGrid.add(telemetryPanelBox, 1, 0);
         simulationGrid.add(controlsPanel, 1, 1);
 
         return simulationGrid;
@@ -221,7 +224,7 @@ public class SimulationView extends Pane {
 
             if (pathResult == null || pathResult.getPath() == null || pathResult.getPath().isEmpty()) {
                 String warningMsg = "NO VALID ROUTE FOUND BETWEEN " + sourceCity.getName().toUpperCase() + " AND " + destinationCity.getName().toUpperCase();
-                mapCanvas.showWarningMessage(warningMsg, activeVehicle, initializer);
+                mapCanvas.showWarningMessage(warningMsg, "TIP: Increase the GRAPH CONECTIVITY RANGE from SIMULATION SETTINGS and click TRY AGAIN", activeVehicle, initializer);
                 terminalLogService.log("ROUTE COMPUTATION FAILED", TerminalLogService.COLOR_ERROR);
                 refreshButton.setVisible(true);
                 refreshButton.setManaged(true);
@@ -269,78 +272,21 @@ public class SimulationView extends Pane {
         return mapPanel;
     }
 
-    private VBox initializeTelemetryPanel() {
-        VBox telemetryPanel = new VBox(15);
-        telemetryPanel.getStyleClass().add("vehicle-card");
-        telemetryPanel.setPadding(new Insets(20));
-        telemetryPanel.setPrefHeight(340);
-
-        Label title = new Label("VEHICLE LIVE TELEMETRY");
-        title.getStyleClass().add("card-section-title");
-
-        HBox gaugesBox = new HBox(30);
-        gaugesBox.setAlignment(Pos.CENTER);
-        gaugesBox.setPadding(new Insets(10, 0, 10, 0));
-
-        VBox speedBox = createGaugeWidget("SPEED", "0", "km/h");
-
-        VBox rpmBox = createGaugeWidget("ENGINE SPEED", "0", "RPM");
-
-        gaugesBox.getChildren().addAll(speedBox, rpmBox);
-
-        VBox energyBox = initializer.initializeFuelStatus(activeVehicle, "stat-label");
-
-        telemetryPanel.getChildren().addAll(title, gaugesBox, energyBox);
-        return telemetryPanel;
-    }
-
-    private VBox createGaugeWidget(String titleText, String initialValue, String unit) {
-        VBox box = new VBox(2);
-        box.setAlignment(Pos.CENTER);
-        box.getStyleClass().add("gauge-widget");
-
-        Label titleLabel = new Label(titleText);
-        titleLabel.getStyleClass().add("stat-label");
-
-        Label valueLabel = new Label(initialValue);
-        ColorUtils.updateBadgeColor(valueLabel, activeVehicle.getEngineType(), "vehicle-name-label", initializer.getIngeritedClasses("vehicle-name-label"));
-
-        Label unitLabel = new Label(unit);
-        unitLabel.getStyleClass().add("stat-label");
-
-        box.getChildren().addAll(titleLabel, valueLabel, unitLabel);
-        return box;
-    }
-
     private VBox initializeControlsPanel() {
-        VBox controlsPanel = new VBox(15);
-        controlsPanel.getStyleClass().add("control-panel");
-        controlsPanel.setPadding(new Insets(20));
+        VBox controlsPanelBox = new VBox(15);
+        controlsPanelBox.getStyleClass().add("control-panel");
+        controlsPanelBox.setPadding(new Insets(20));
 
         Label title = new Label("SIMULATION SETTINGS");
         title.getStyleClass().add("card-section-title");
         title.getStyleClass().add("card-section-title");
 
-        Label carTitle = new Label(activeVehicle.getBrand() + "\n" + activeVehicle.getModel());
-        ColorUtils.updateBadgeColor(carTitle, activeVehicle.getEngineType(), "customizable-label", initializer.getIngeritedClasses("customizable-label"));
+        ControlsPanel controlsPanel = new ControlsPanel(initializer, srvPointOfInterest, activeVehicle, onSettingsPressed);
+        HBox vehicleSettingsBox = controlsPanel.initializeCarSettingsEditGroup();
+        VBox graphMaxDistanceBox = controlsPanel.initializeGraphMaxDistanceEditGroup();
 
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-
-        Button changeVehicleButton = new Button("CHANGE VEHICLE");
-        ColorUtils.updateCustomizeButtonColor(changeVehicleButton, activeVehicle.getEngineType());
-
-        changeVehicleButton.setOnMouseClicked(event -> {
-            if (onSettingsPressed != null) {
-                onSettingsPressed.run();
-            }
-        });
-
-        HBox vehicleSettingsBox = new HBox(15);
-        vehicleSettingsBox.getChildren().addAll(title, carTitle, spacer, changeVehicleButton);
-
-        controlsPanel.getChildren().addAll(title, vehicleSettingsBox);
-        return controlsPanel;
+        controlsPanelBox.getChildren().addAll(title, vehicleSettingsBox, graphMaxDistanceBox);
+        return controlsPanelBox;
     }
 
     private VBox initializeTerminalPanel() {

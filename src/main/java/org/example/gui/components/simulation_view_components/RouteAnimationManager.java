@@ -134,8 +134,24 @@ public class RouteAnimationManager
                 }
 
                 if (terminalLogService != null) {
-                    String msg = sourceMapPoint.getPointOfInterest().getName() + " " + destinationMapPoint.getPointOfInterest().getName() + " -> " + destinationMapPoint.getPointOfInterest().getName();
-                    terminalLogService.logSimulatedEvent(startTime, msg, TerminalLogService.COLOR_MUTED);
+                  //  String msg = sourceMapPoint.getPointOfInterest().getName() + " " + destinationMapPoint.getPointOfInterest().getName() + " -> " + destinationMapPoint.getPointOfInterest().getName();
+
+                    boolean isCity = sourceMapPoint.getPointOfInterest() instanceof City;
+                    boolean isVirtualPoint = sourceMapPoint.getPointOfInterest() instanceof VirtualPoint;
+                    StringBuilder msg = new StringBuilder();
+                    msg.append("REACHED ").append(sourceMapPoint.getPointOfInterest().getName());
+                    if (!isVirtualPoint) {
+                        msg.append(", ").append(sourceMapPoint.getPointOfInterest().getCountry());
+                    }
+                    String colorHex;
+                    if (isCity) {
+                        colorHex = TerminalLogService.COLOR_DEFAULT;
+                    }
+
+                    else {
+                        colorHex = TerminalLogService.COLOR_MUTED;
+                    }
+                    terminalLogService.logSimulatedEvent(startTime, msg.toString(), colorHex);
                 }
             });
         }

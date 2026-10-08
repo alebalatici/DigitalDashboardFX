@@ -69,9 +69,10 @@ public class AlgorithmsTest {
         repo.addPointOfInterest(hotel2);
         */
 
-
-        srv = new PointOfInterestService(repo);
-        srv.buildGraph(1000);
+        PointOfInterestValidator val = new PointOfInterestValidator();
+        srv = new PointOfInterestService(repo, val);
+        srv.setMaxConnectDistanceKm(1000);
+        srv.buildGraph();
     }
 
     /*

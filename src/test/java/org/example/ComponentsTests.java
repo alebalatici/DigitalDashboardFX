@@ -58,7 +58,8 @@ public class ComponentsTests {
         repoPointOfInterest.loadFromFile(tempFilePathHotels);
         repoPointOfInterest.loadFromFile(tempFilePathRestaurants);
 
-        srvPointOfInterest = new PointOfInterestService(repoPointOfInterest);
+        PointOfInterestValidator valPointOfInterest = new PointOfInterestValidator();
+        srvPointOfInterest = new PointOfInterestService(repoPointOfInterest, valPointOfInterest);
         startDateTime = LocalDateTime.of(2026, 9, 4, 15, 0);
     }
 
@@ -197,7 +198,8 @@ public class ComponentsTests {
 
     @Test
     void testPathResult() {
-        srvPointOfInterest.buildGraph(200);
+        srvPointOfInterest.setMaxConnectDistanceKm(200);
+        srvPointOfInterest.buildGraph();
         Graph graph = srvPointOfInterest.getGraph();
         assertNotNull(graph);
         startDateTime = LocalDateTime.of(2026, 9, 4, 8, 0);

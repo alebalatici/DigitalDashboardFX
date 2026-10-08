@@ -24,4 +24,21 @@ public class PointOfInterestValidator {
             throw new ValidationException(errors);
         }
     }
+
+    public void validateMaxConectivityDistance(String text) {
+        if (text == null || text.isEmpty()) {
+            return;
+        }
+
+        try {
+            double maxConectivityDistance = Double.parseDouble(text);
+            if (maxConectivityDistance < 0) {
+                throw new ValidationException("The maximum conectivity distance cannot be negative");
+            }
+        }
+
+        catch (NumberFormatException e) {
+            throw new ValidationException("The maximum conectivity distance must be a valid number");
+        }
+    }
 }

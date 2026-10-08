@@ -4,6 +4,7 @@ import org.example.algorithms.Dijkstra;
 import org.example.algorithms.PathResult;
 import org.example.calculations.Graph;
 import org.example.calculations.PointOfInterestService;
+import org.example.core.PointOfInterestValidator;
 import org.example.core.Vehicle;
 import org.example.repo.PointOfInterestFileRepository;
 import org.example.utils.FileUtils;
@@ -51,13 +52,15 @@ public class ComplexComponentsTests {
         repoPointOfInterest.loadFromFile(tempFilePathHotels);
         repoPointOfInterest.loadFromFile(tempFilePathRestaurants);
 
-        srvPointOfInterest = new PointOfInterestService(repoPointOfInterest);
+        PointOfInterestValidator valPointOfInterest = new PointOfInterestValidator();
+        srvPointOfInterest = new PointOfInterestService(repoPointOfInterest, valPointOfInterest);
         startDateTime = LocalDateTime.of(2026, 9, 4, 15, 0);
     }
 
     @Test
     void testPathResult() {
-        srvPointOfInterest.buildGraph(500);
+        srvPointOfInterest.setMaxConnectDistanceKm(500);
+        srvPointOfInterest.buildGraph();
         Graph graph = srvPointOfInterest.getGraph();
         assertNotNull(graph);
         startDateTime = LocalDateTime.of(2026, 9, 4, 8, 0);

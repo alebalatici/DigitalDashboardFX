@@ -295,7 +295,6 @@
     -fx-effect: dropshadow(three-pass-box, rgba(255, 42, 109, 0.6), 4, 0, 0, 0);
 }
 
-
 .error-verification {
     -fx-text-fill: #FF0000;
     -fx-font-family: 'Segoe UI', sans-serif;

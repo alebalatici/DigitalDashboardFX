@@ -66,6 +66,7 @@ public class Initializer {
         inputGroup.setSpacing(8);
 
         Label label = new Label(labelText);
+        label.setWrapText(true);
         label.getStyleClass().add("input-label-text");
 
         textField.setPromptText(placeholder);
@@ -82,6 +83,7 @@ public class Initializer {
         group.setPadding(new Insets(15));
 
         Label label = new Label(labelText);
+        label.setWrapText(true);
         label.getStyleClass().add("edit-group-label");
 
         slider.setMin(minValue);
@@ -101,6 +103,7 @@ public class Initializer {
         editGroup.getStyleClass().add("custom-edit-group");
 
         Label label = new Label(labelText);
+        label.setWrapText(true);
         label.getStyleClass().add("edit-group-label");
 
         Region spacer = new Region();

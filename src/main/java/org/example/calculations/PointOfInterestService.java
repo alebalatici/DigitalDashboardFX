@@ -11,11 +11,13 @@ import java.util.List;
 
 public class PointOfInterestService {
     private final PointOfInterestRepository repo;
-
+    private final PointOfInterestValidator val;
+    private double maxConnectDistanceKm = 200;
     private Graph graph;
 
-    public PointOfInterestService(PointOfInterestRepository repo) {
+    public PointOfInterestService(PointOfInterestRepository repo, PointOfInterestValidator val) {
         this.repo = repo;
+        this.val = val;
     }
 
     public void addCity(String name, String country, double x, double y, double weekdayCongestionFactor, double weekendCongestionFactor) {
@@ -122,11 +124,18 @@ public class PointOfInterestService {
         return repo.getAllPointsOfInterest("RESTAURANT").stream().map(p -> (Restaurant) p).toList();
     }
 
+    public double getMaxConnectDistanceKm() {
+        return maxConnectDistanceKm;
+    }
+
+    public void setMaxConnectDistanceKm(double maxConnectDistanceKm) {
+        this.maxConnectDistanceKm = maxConnectDistanceKm;
+    }
+
     /**
      * Builds and returns the graph based on the locations from the repository
-     * @param maxConnectDistanceKm The maximum connect radius. Only the nodes which have a Havesine Distance <= maxConnectDistanceKm will be connected
      */
-    public void buildGraph(double maxConnectDistanceKm) {
+    public void buildGraph() {
         this.graph = new Graph();
         List<PointOfInterest> allPoints = repo.getAllPointsOfInterest("ALL");
 
@@ -184,13 +193,15 @@ public class PointOfInterestService {
         }
     }
 
+
     public void rebuildGraph(double maxConnectDistanceKm) {
-        buildGraph(maxConnectDistanceKm);
+        setMaxConnectDistanceKm(maxConnectDistanceKm);
+        buildGraph();
     }
 
     public Graph getGraph() {
         if (this.graph == null) {
-            buildGraph(200.0);
+            buildGraph();
         }
         return this.graph;
     }
@@ -207,5 +218,9 @@ public class PointOfInterestService {
         catch (Exception e) {
             graph.addUndirectedEdge(source, destination);
         }
+    }
+
+    public void validateMaxConnectDistanceKm(String text) {
+        val.validateMaxConectivityDistance(text);
     }
 }

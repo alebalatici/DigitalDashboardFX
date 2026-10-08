@@ -60,11 +60,6 @@ public class CustomizeVehicleForm {
         customPanel.setPadding(new Insets(15));
         customPanel.getStyleClass().add("custom-panel");
 
-        /*
-        Label subtitle = new Label("ADVANCED DYNAMICS & OVERRIDES");
-        subtitle.getStyleClass().addAll("card-section-title");
-         */
-
         VBox firstEditGroup = initializeFirstEditGroup(activeVehicle);
         VBox secondEditGroup = initializeSecondEditGroup(activeVehicle);
 
